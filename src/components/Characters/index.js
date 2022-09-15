@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import { withTranslation } from "react-i18next";
+import ScrollToTop from "../../common/ScrollToTop";
 
+import { withTranslation } from "react-i18next";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons'
 
 import {
   CharactersCard,
@@ -14,12 +17,19 @@ import {
   CharactersTypography,
   CharactersCircularProgress,
   CharactersDiv,
-  CharacterCheckbox
+  CharactersSpanChecked,
+  CharactersGridClass,
+  CharactersH1,
+  CharactersInputChecked,
+  CharactersLabelChecked
 } from "./styles";
 
 const Characters = (props) => {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [checked, setChecked] = useState(false);
+
   let card = null;
 
   useEffect(() => {
@@ -51,6 +61,11 @@ const Characters = (props) => {
     };
   }, [props.characters]);
 
+
+  const handleChecked = () => {
+    setChecked(!checked);
+  }
+
   const buildCard = (character) => {
     let charImgUrl = '';
 
@@ -62,9 +77,20 @@ const Characters = (props) => {
     }
 
     return (
-      <CharactersGrid item xs={12} sm={10} md={4} lg={3} xl={2} key={character.id}>
+      <CharactersGrid item key={character.id}>
         <CharactersCard variant="outlined">
           <CharactersCardActionArea>
+            {/* <CharactersSpanChecked onClick={handleChecked} >
+              {
+                checked ?
+                  <FontAwesomeIcon className='faCheckSquare' icon={faCheckSquare} size="lg" color="green" />
+                  : <FontAwesomeIcon className='faSquare' icon={faSquare} size="lg" color="white" />
+              }
+            </CharactersSpanChecked> */}
+            <CharactersInputChecked id={`${character.id}_checkbox`} type="checkbox" onClick={handleChecked} />
+            <CharactersLabelChecked>
+
+            </CharactersLabelChecked>
             <Link to={() => console.log("Link:" + character.id)}>
               <CharactersCardMedia
                 component="img"
@@ -80,12 +106,11 @@ const Characters = (props) => {
                 >
                   {character.name}
                 </CharactersTypography>
-                <CharacterCheckbox />
               </CharactersCardContent>
             </Link>
           </CharactersCardActionArea>
         </CharactersCard>
-      </CharactersGrid>
+      </CharactersGrid >
     );
   };
 
@@ -101,23 +126,24 @@ const Characters = (props) => {
     return (
       <>
         <CharactersCircularProgress />
-        <h1>{props.t("CharactersResultLoading")}</h1>
+        <CharactersH1>{props.t("CharactersResultLoading")}</CharactersH1>
       </>
     );
   }
   else {
     return (
-      <>
+      <div id="characters">
+        <ScrollToTop component={"characters"} />
         {
           card && card.length > 0 ?
             <CharactersDiv>
-              <CharactersGrid container spacing={3}>
+              <CharactersGridClass container spacing={3}>
                 {card}
-              </CharactersGrid>
+              </CharactersGridClass>
             </CharactersDiv>
-            : <h1>{props.t("CharactersResultNotFound")}</h1>
+            : <CharactersH1>{props.t("CharactersResultNotFound")}</CharactersH1>
         }
-      </>
+      </div>
     );
   }
 };
