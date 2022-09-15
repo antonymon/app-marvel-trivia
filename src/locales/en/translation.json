@@ -1,0 +1,45 @@
+{
+  "Home": "Home",
+  "Play": "Play",
+  "Leaderboard": "Leaderboard",
+  "SigIn": "SigIn",
+  "TableOfLeaderboard": "Table of Leaderboard",
+  "WatchLeadearbord": "See Everything",
+
+  "Search": "Search",
+  "SearchCommicInput": "Search commic...",
+
+  "SearchResultLoading": "Loading comics!",
+  "SearchResultNextButton": "Next",
+  "SearchResultListComics": "Previous",
+  "SearchResultPreviousButton": "Back",
+  "SearchResultListComicsButton": "Back",
+  "SearchResultListCharactersButton": "Back",
+  "SearchResultListSeriesButton": "Back",
+  "SearchResultListSeriesMessage": "Results found for:",
+  "SearchResultListSeriesMessage404": "No results found!",
+
+  "Language": "Language",
+  "SigInOrSigUp": "Working...",
+
+  "ComicsTitleDescription": "Description:",
+  "ComicsDescription": "Description not available.",
+  "ComicsTitlePageNumber": "Page number:",
+  "ComicsPageNumber": "Page number not available.",
+  "ComicsTitleSeries": "Series:",
+  "ComicsTitleVariant": "Variants:",
+  "ComicsDescriptionVariant": "Variants not available.",
+  "ComicsTitleCreators": "Creators:",
+  "ComicsDescriptionCreators": "VarCreatorsiants not available.",
+  "ComicsTitleCharacters": "Characters:",
+  "ComicsDescriptionCharacters": "Characters not available.",
+  "ComicsButtonBack": "Comics list",
+
+  "Error404": "Error 404: Page not found 😢!",
+
+  "CharactersButtonNext": "Next",
+  "CharactersButtonPrevious": "Previous",
+  "CharactersResultLoading": "Loading characters 😀!",
+  "CharactersButtonBack": "Characters list",
+  "CharactersResultNotFound": "No results found 😮!"
+}

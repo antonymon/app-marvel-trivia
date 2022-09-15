@@ -1,0 +1,13 @@
+{
+  "title": "Sobre Marvel Trivial",
+  "text": "Trivia de personajes e historias de comics de Marvel",
+  "button": [
+    {
+      "title": "SigIn"
+    },
+    {
+      "title": "Learn more",
+      "color": "#fff"
+    }
+  ]
+}

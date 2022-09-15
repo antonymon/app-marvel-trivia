@@ -1,0 +1,44 @@
+{
+  "Home": "Home",
+  "Play": "Jugar",
+  "Leaderboard": "Clasificación",
+  "SigIn": "Iniciar Sesión",
+  "TableOfLeaderboard": "Tabla de resultados",
+  "WatchLeadearbord": "Ver Todos",
+
+  "Search": "Buscar",
+  "SearchCommicInput": "Buscar cómic...",
+
+  "SearchResultLoading": "¡Cargando cómics!",
+  "SearchResultNextButton": "Siguiente",
+  "SearchResultPreviousButton": "Anterior",
+  "SearchResultListComicsButton": "Regresar",
+  "SearchResultListCharactersButton": "Regresar",
+  "SearchResultListSeriesButton": "Regresar",
+  "SearchResultListSeriesMessage": "Resultados encontrados para:",
+  "SearchResultListSeriesMessage404": "¡No se han encontrado resultados!",
+
+  "Language": "Lenguaje",
+  "SigInOrSigUp": "Tabajando...",
+
+  "ComicsTitleDescription": "Descripción:",
+  "ComicsDescription": "Descripción no disponible.",
+  "ComicsTitlePageNumber": "Número de página:",
+  "ComicsPageNumber": "Número de página no disponible.",
+  "ComicsTitleSeries": "Series:",
+  "ComicsTitleVariant": "Variantes:",
+  "ComicsDescriptionVariant": "Variantes no disponible.",
+  "ComicsTitleCreators": "Creadores:",
+  "ComicsDescriptionCreators": "Creadores no disponible.",
+  "ComicsTitleCharacters": "Personajes:",
+  "ComicsDescriptionCharacters": "Personajes no disponibles.",
+  "ComicsButtonBack": "Lista de cómics",
+
+  "Error404": "Error 404: ¡Página no encontrada 😢!",
+
+  "CharactersButtonNext": "Siguiente",
+  "CharactersButtonPrevious": "Anterior",
+  "CharactersResultLoading": "¡Cargando personajes 😀!",
+
+  "CharactersResultNotFound": "¡No se han encontrado resultados 😮!"
+}
