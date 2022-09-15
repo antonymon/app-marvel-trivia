@@ -3,7 +3,7 @@ import { SvgIcon } from "../SvgIcon";
 import { ScrollUpContainer } from "./styles";
 import { getScroll } from "../utils/getWindow";
 
-const ScrollToTop = () => {
+const ScrollToTop = (props) => {
   const [showScroll, setShowScroll] = useState(false);
 
   const checkScrollTop = (event) => {
@@ -25,12 +25,20 @@ const ScrollToTop = () => {
   }, []);
 
   const scrollUp = () => {
-    const element = document.getElementById("intro");
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-      inline: "nearest",
-    });
+    const componetsCustom = ["comics", "characters", "comicsList", "searchResult"];
+    const isComponentCustom = componetsCustom.includes(props.component);
+
+    if (isComponentCustom) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+
+      const element = document.getElementById("intro");
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest"
+      });
+    }
   };
 
   return (

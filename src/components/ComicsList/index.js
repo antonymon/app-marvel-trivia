@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import ScrollToTop from "../../common/ScrollToTop";
 import { Link, Redirect } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
@@ -169,7 +170,8 @@ const ComicsList = (props) => {
     );
   } else {
     return (
-      <div>
+      <div id="comicsList">
+        <ScrollToTop component={"comicsList"} />
         <Search searchValue={searchValue} />
         {paginationButtons()}
         <ComicsListGrid container spacing={3}>

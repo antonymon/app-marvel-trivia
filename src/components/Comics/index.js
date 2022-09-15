@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { withTranslation } from "react-i18next";
-
+import ScrollToTop from "../../common/ScrollToTop";
 import { Redirect } from "react-router-dom";
 import {
   ComicsContainer,
@@ -76,15 +76,16 @@ const Comics = (props) => {
 
     return (
       <>
-        <ComicsDivButton>
+        <ScrollToTop component={"comics"} />
+        <ComicsDivButton id="comics">
           <ComicsButtonBack to="/comics/page/0">
             {props.t("ComicsButtonBack")}
           </ComicsButtonBack>
         </ComicsDivButton>
 
         <ComicsContainer>
-          <Row>
-            <Row justify="space-between">
+          <Row justify="space-between">
+            <Row>
               <Col lg={11} md={11} sm={12} xs={24}>
                 <ComicsCard variant="outlined">
 
@@ -101,8 +102,12 @@ const Comics = (props) => {
                           <ComicsTitle>{props.t("ComicsTitleDescription")} </ComicsTitle>
                           <ComicsP>
                             {comicData.description
-                              ? comicData.description
-                              : props.t("ComicsDescription")}
+                              ? comicData.description.replaceAll("<br>", "")
+                              : props.t("ComicsDescription")
+                            }
+                            {
+                              console.log("comicData.description", comicData.description)
+                            }
                           </ComicsP>
                         </div>
                         <div>
@@ -126,11 +131,9 @@ const Comics = (props) => {
                 </ComicsCard>
               </Col>
               <Col lg={11} md={11} sm={12} xs={24}>
-
                 <CharactersCards>
                   <Characters {...props} characters={characters} />
                 </CharactersCards>
-
               </Col>
             </Row>
           </Row >

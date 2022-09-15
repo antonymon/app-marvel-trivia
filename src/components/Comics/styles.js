@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 
 export const ComicsContainer = styled("div")`  
     background-color: #1f2029 !important;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    padding: 1rem;
 `;
 
 export const ComicsCircularProgress = styled(CircularProgress)`
@@ -18,9 +20,9 @@ export const ComicsCard = styled(Card)`
     height: auto;
     margin-top: 1rem;
     margin-left: 1rem;
-    margin-right: auto;
+    margin-right: 1rem;
     margin-bottom: 40px;
-    border-radius: 5;
+    border-radius: 4px;
     border: 1px solid #fff;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     
@@ -37,9 +39,9 @@ export const CharactersCards = styled(Card)`
     max-width: 100%;
     height: auto;
     margin-top: 1rem;
-    margin-left: auto;
+    margin-left: 1rem;
     margin-right: 1rem;
-    margin-bottom: 40px;
+    border-radius: 4px !important;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
 `;
 

@@ -42,4 +42,13 @@ export const SearchBtn = styled("button")`
     color: #fff;
     border: 1px solid #fff;
   }
+/*   
+  @media only screen and (max-width: 890px) {
+          font-size: 47px;
+        } */
+      
+  @media only screen and (max-width: 414px) {
+    font-size: 0.8rem;
+    width: 30%;
+  }
 `;
