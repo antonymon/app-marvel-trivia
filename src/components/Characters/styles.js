@@ -50,37 +50,58 @@ export const CharactersDiv = styled("div")`
 export const CharactersCardActionArea = styled(CardActionArea)`
 `;
 
-export const CharactersSpanChecked = styled("span")`
+export const CharactersCheckboxDiv = styled("div")`
   position: absolute;
+  top: 0;
   right: 0;
-  margin-top: -0.4rem;
-  margin-right: 0 !important;
-  padding: 0 !important;
-  font-size: 2rem;
+  z-index: 1;
+  font-size: 24px;
+  color: transparent;
 
-  .faSquare {
-    color: rgba(255, 255, 255, 0.5);
-    color: rgba(255, 255, 255, 0.5);
-    &:hover {
-      color: green;
-    }
+  cursor: pointer;
+
+  input[type=checkbox] {
+    display: none;
+  }
+  .label {
+    //border: 1px solid #000;
+    display: inline-block;
+    padding: 3px;
+    background: url("/img/unchecked.png") no-repeat left center;
+  }
+  input[type=checkbox]:checked + .label {
+    //background: #f00;
+    //color: #fff;
+    background-image: url("/img/checked.png");
   }
   
-  .faCheckSquare {    
-    color: green;
-    font-weight: bold;
-    &:hover {
-      color: white;
-    }
+`;
+
+export const CharactersCheckboxInput = styled("input")`  
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 30px;
+  height: 50px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  :checked {
+    background-color: #fff;
   }
-`;
-
-export const CharactersInputChecked = styled("input")`
-
-`;
-
-export const CharactersLabelChecked = styled("label")`
-
+  :checked::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 50px;
+    background-color: red;
+    box-shadow: inset 0 0 0 5px red;
+  }
 `;
 
 export const CharactersCardHeader = styled(CardHeader)`

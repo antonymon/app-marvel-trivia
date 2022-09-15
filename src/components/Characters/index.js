@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import ScrollToTop from "../../common/ScrollToTop";
 
 import { withTranslation } from "react-i18next";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons'
 
 import {
   CharactersCard,
@@ -17,18 +15,16 @@ import {
   CharactersTypography,
   CharactersCircularProgress,
   CharactersDiv,
-  CharactersSpanChecked,
   CharactersGridClass,
   CharactersH1,
-  CharactersInputChecked,
-  CharactersLabelChecked
+  CharactersCheckboxDiv,
+  CharactersCheckboxInput
 } from "./styles";
 
 const Characters = (props) => {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [checked, setChecked] = useState(false);
 
   let card = null;
 
@@ -61,9 +57,15 @@ const Characters = (props) => {
     };
   }, [props.characters]);
 
+  let checkedCharacters = [];
 
-  const handleChecked = () => {
-    setChecked(!checked);
+  const handleChecked = (id) => {
+    if (checkedCharacters.includes(id)) {
+      checkedCharacters = checkedCharacters.filter((characterId) => characterId !== id);
+    } else {
+      checkedCharacters.push(id);
+    }
+    console.log({ checkedCharacters });
   }
 
   const buildCard = (character) => {
@@ -80,18 +82,17 @@ const Characters = (props) => {
       <CharactersGrid item key={character.id}>
         <CharactersCard variant="outlined">
           <CharactersCardActionArea>
-            {/* <CharactersSpanChecked onClick={handleChecked} >
-              {
-                checked ?
-                  <FontAwesomeIcon className='faCheckSquare' icon={faCheckSquare} size="lg" color="green" />
-                  : <FontAwesomeIcon className='faSquare' icon={faSquare} size="lg" color="white" />
-              }
-            </CharactersSpanChecked> */}
-            <CharactersInputChecked id={`${character.id}_checkbox`} type="checkbox" onClick={handleChecked} />
-            <CharactersLabelChecked>
+            <CharactersCheckboxDiv>
+              <label>
+                <CharactersCheckboxInput
+                  type="checkbox"
+                  onChange={() => handleChecked(character.id)}
+                />
+                <span class="label">XXX</span>
+              </label>
+            </CharactersCheckboxDiv>
 
-            </CharactersLabelChecked>
-            <Link to={() => console.log("Link:" + character.id)}>
+            <Link to={() => { }}>
               <CharactersCardMedia
                 component="img"
                 image={charImgUrl ? charImgUrl : "/img/no-img.jpeg"}

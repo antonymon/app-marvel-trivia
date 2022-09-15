@@ -105,9 +105,6 @@ const Comics = (props) => {
                               ? comicData.description.replaceAll("<br>", "")
                               : props.t("ComicsDescription")
                             }
-                            {
-                              console.log("comicData.description", comicData.description)
-                            }
                           </ComicsP>
                         </div>
                         <div>
