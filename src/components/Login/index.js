@@ -78,7 +78,7 @@ const Login = (props) => {
         }
     };
 
-    const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/auth/signin`;
+    const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/auth`;
 
     async function singInSendData() {
         try {
@@ -91,7 +91,7 @@ const Login = (props) => {
                 password: password
             }
 
-            const { data } = await axios.post(url, user);
+            const { data } = await axios.post(`${url}/signin`, user);
 
             setLoading(false);
 
@@ -127,11 +127,12 @@ const Login = (props) => {
 
         }
         catch (e) {
-            console.log("login failed");
+            console.log("login failed", { e });
 
             const { response } = e;
+            const data = response.data.error ? response.data.error : response.data;
+
             if (response) {
-                const { data } = response;
                 MySwal.fire({
                     title: <p className="titleAlert">{data.description.message}</p>,
                     icon: 'error',
@@ -157,12 +158,14 @@ const Login = (props) => {
             setLoading(true);
 
             let user = {
-                username: name,
+                name: name,
+                username: email.split("@")[0],
                 email: email,
-                password: password
+                password: password,
+                roles: ["user"]
             }
 
-            const { data } = await axios.post(url, user);
+            const { data } = await axios.post(`${url}/signup`, user);
 
             setLoading(false);
 
@@ -175,7 +178,7 @@ const Login = (props) => {
                     password: password
                 }
 
-                const dataLogin = await axios.post(url, user);
+                const dataLogin = await axios.post(`${url}/signin`, user);
 
                 if (dataLogin.data) {
                     console.log("login success" + dataLogin.data);
@@ -188,7 +191,7 @@ const Login = (props) => {
                         timer: 1000,
                         showConfirmButton: false,
                         willClose: () => {
-                            window.location.href = "/singin";
+                            window.location.href = "/home";
                         }
                     })
                 }
@@ -219,13 +222,15 @@ const Login = (props) => {
 
         }
         catch (e) {
-            console.log("singUp failed");
+            console.log("singUp failed", { e });
 
             const { response } = e;
+
+            const data = response.data.error ? response.data.error : response.data;
+
             if (response) {
-                const { data } = response;
                 MySwal.fire({
-                    title: <p className="titleAlert">{data.description.message}</p>,
+                    title: <p className="titleAlert">{data.description.message ?? data.description}</p>,
                     icon: 'error',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
@@ -246,7 +251,7 @@ const Login = (props) => {
         return (
             <>
                 <LoginCircularProgress />
-                <LoginH1>{props.t("CharactersResultLoading")}</LoginH1>
+                <LoginH1>{props.t("LoginResultLoading")}</LoginH1>
             </>
         );
     }

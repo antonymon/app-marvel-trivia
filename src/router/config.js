@@ -25,6 +25,11 @@ const routes = [
     component: "Comics",
   },
   {
+    path: ["/leaderboard"],
+    exact: true,
+    component: "Leaderboard",
+  },
+  {
     path: ["/error/:errorMsg"],
     exact: true,
     component: "Error",

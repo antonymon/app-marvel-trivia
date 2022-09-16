@@ -1,11 +1,11 @@
 import { Row } from "antd";
 import React from "react";
 import { withTranslation } from "react-i18next";
-import { ErrorButtonBack } from "./styles";
+import { ErrorButtonBack, ErrorDiv } from "./styles";
 
 const Error = (props) => {
   return (
-    <Row>
+    <ErrorDiv>
       <h1>
         {props.t("Error404")}
       </h1>
@@ -14,7 +14,7 @@ const Error = (props) => {
           {props.t("Home")}
         </ErrorButtonBack>
       </Row>
-    </Row>
+    </ErrorDiv>
   );
 };
 

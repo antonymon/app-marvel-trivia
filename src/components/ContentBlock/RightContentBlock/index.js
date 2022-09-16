@@ -38,7 +38,7 @@ const RightBlock = ({
               <h6>{t(title)}</h6>
               <Content>{t(content)}</Content>
               {
-                user?.accessToken ? null
+                user?.accessToken ? <ButtonWrapper />
                   :
                   (
                     <ButtonWrapper>

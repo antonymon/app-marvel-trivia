@@ -22,7 +22,17 @@ import { Col, Row } from "antd";
 
 import Characters from "../../components/Characters";
 
+import { useSelector } from "react-redux";
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+
 const Comics = (props) => {
+  const user = useSelector((state) => state.user);
+  console.log("Comics: ", user);
+
   const [comicData, setComicData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [characters, setCharacters] = useState([]);
@@ -42,7 +52,13 @@ const Comics = (props) => {
           let comicId = props.match.params.id;
           const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/external/apiMarvel/comics/${comicId}`;
 
-          const { data } = await axios.get(url);
+          const configAxios = {
+            headers: {
+              'x-access-token': user?.accessToken
+            }
+          };
+
+          const { data } = await axios.get(url, configAxios);
 
           setComicData(data.data.results[0]);
 
@@ -51,7 +67,28 @@ const Comics = (props) => {
 
           setLoading(false);
         } catch (e) {
-          console.log(e);
+          console.log("Comics failed", { e });
+
+          const { response } = e;
+          const data = response.data.error ? response.data.error : response.data;
+
+          if (response) {
+            MySwal.fire({
+              title: <p className="titleAlert">{data.description.message}</p>,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: 'green'
+            })
+          }
+          else {
+            MySwal.fire({
+              title: <p className="titleAlert">Something went wrong</p>,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: 'green'
+            })
+          }
+          setLoading(false);
         }
       }
     }

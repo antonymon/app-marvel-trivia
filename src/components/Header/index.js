@@ -19,7 +19,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { Logout } from "../../redux/userSlice";
 
-const Header = ({ t }) => {
+const Header = (props) => {
   const user = useSelector((state) => state.user);
   console.log("Header: ", user);
 
@@ -45,15 +45,27 @@ const Header = ({ t }) => {
     };
     return (
       <>
-        <CustomNavLinkSmall onClick={() => scrollTo("intro")}>
-          <Span>{t("Home")}</Span>
+        <CustomNavLinkSmall onClick={() => {
+          if (window.location.pathname.includes("home") || window.location.pathname === "/") {
+            scrollTo("intro")
+          } else {
+            window.location.href = "/home";
+          }
+        }}>
+          <Span>{props.t("Home")}</Span>
         </CustomNavLinkSmall>
         {
           user?.accessToken && user?.roles?.includes("ROLE_USER")
             ?
             (
-              <CustomNavLinkSmall onClick={() => scrollTo("play")}>
-                <Span>{t("Play")}</Span>
+              <CustomNavLinkSmall onClick={() => {
+                if (window.location.pathname.includes("/comics/page/")) {
+                  console.log("urlPath: ", window.location.pathname);
+                } else {
+                  window.location.href = "/comics/page/0"
+                }
+              }}>
+                <Span>{props.t("Play")}</Span>
               </CustomNavLinkSmall>
             )
             : null
@@ -62,16 +74,33 @@ const Header = ({ t }) => {
           user?.accessToken && user?.roles?.includes("ROLE_ADMIN")
             ?
             (
-              <CustomNavLinkSmall onClick={() => scrollTo("maintenanceplay")}>
-                <Span>{t("MaintenancePlay")}</Span>
+              <CustomNavLinkSmall onClick={() => {
+                if (window.location.pathname.includes("/comics/page/")) {
+                  console.log("urlPath: ", window.location.pathname);
+                } else {
+                  window.location.href = "/comics/page/0"
+                }
+              }}>
+                <Span>{props.t("MaintenancePlay")}</Span>
               </CustomNavLinkSmall>
             )
             : null
         }
 
-        <CustomNavLinkSmall onClick={() => scrollTo("leaderboard")}>
-          <Span>{t("Leaderboard")}</Span>
-        </CustomNavLinkSmall>
+        {
+          <CustomNavLinkSmall onClick={() => {
+            console.log("urlPath: ", window.location.pathname);
+
+            if (window.location.pathname.includes("home") || window.location.pathname === "/") {
+              scrollTo("leaderboard")
+            } else {
+              window.location.href = "/leaderboard";
+            }
+          }}>
+            <Span>{props.t("Leaderboard")}</Span>
+          </CustomNavLinkSmall>
+        }
+
 
         {user?.accessToken
           ? (
@@ -84,7 +113,7 @@ const Header = ({ t }) => {
                 }}
               >
                 <Span>
-                  <Button onClick={() => scrollTo("home")}>{t("Logout")}</Button>
+                  <Button onClick={() => scrollTo("home")}>{props.t("Logout")}</Button>
                 </Span>
 
               </CustomNavLinkSmall>
@@ -95,10 +124,19 @@ const Header = ({ t }) => {
             <>
               <CustomNavLinkSmall
                 style={{ width: "180px" }}
-                onClick={() => scrollTo("sigin")}
+                onClick={() => {
+                  console.log("urlPath: ", window.location.pathname);
+
+                  if (window.location.pathname.includes("home") || window.location.pathname === "/") {
+                    scrollTo("sigin")
+                  } else {
+                    window.location.href = "/home";
+                    scrollTo("sigin")
+                  }
+                }}
               >
                 <Span>
-                  <Button onClick={() => scrollTo("sigin")}>{t("SigIn")}</Button>
+                  <Button onClick={() => scrollTo("sigin")}>{props.t("SigIn")}</Button>
                 </Span>
 
               </CustomNavLinkSmall>

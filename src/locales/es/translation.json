@@ -60,7 +60,8 @@
   "LoginSingInPassword": "Contraseña",
   "LoginSingInTitlePlaceHolderEmail": "username@dominio.com",
   "LoginSingInTitlePlaceHolderPassword": "Contraseña",
-  "LoginSingUpTitlePlaceHolderName": "Usuario",
+  "LoginSingUpTitlePlaceHolderName": "Nombre",
   "LoginSingUpTitlePlaceHolderEmail": "username@dominio.com",
-  "LoginSingUpTitlePlaceHolderPassword": "Contraseña"
+  "LoginSingUpTitlePlaceHolderPassword": "Contraseña",
+  "LoginResultLoading": "¡Cargando 😀!"
 }

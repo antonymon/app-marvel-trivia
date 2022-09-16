@@ -21,7 +21,16 @@ import {
   CharactersCheckboxInput
 } from "./styles";
 
+import { useSelector } from "react-redux";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+
 const Characters = (props) => {
+  const user = useSelector((state) => state.user);
+  console.log("MiddleBlock: ", user);
+
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,9 +47,15 @@ const Characters = (props) => {
 
         let fetchData = [];
 
+        const configAxios = {
+          headers: {
+            'x-access-token': user?.accessToken
+          }
+        };
+
         for (let i = 0; i < charactersIds.length; i++) {
           const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/external/apiMarvel/characters/${charactersIds[i]}`;
-          const { data } = await axios.get(url);
+          const { data } = await axios.get(url, configAxios);
           fetchData.push(data.data.results[0]);
         }
 
@@ -48,14 +63,35 @@ const Characters = (props) => {
         setCharacters(fetchData);
       }
       catch (e) {
-        console.log(e);
+        console.log("Characters failed", { e });
+
+        const { response } = e;
+        const data = response.data.error ? response.data.error : response.data;
+
+        if (response) {
+          MySwal.fire({
+            title: <p className="titleAlert">{data.description.message}</p>,
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: 'green'
+          })
+        }
+        else {
+          MySwal.fire({
+            title: <p className="titleAlert">Something went wrong</p>,
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: 'green'
+          })
+        }
+        setLoading(false);
       }
     }
     fetchData();
     return () => {
       return null;
     };
-  }, [props.characters]);
+  }, [props.characters, user]);
 
   let checkedCharacters = [];
 
@@ -82,33 +118,41 @@ const Characters = (props) => {
       <CharactersGrid item key={character.id}>
         <CharactersCard variant="outlined">
           <CharactersCardActionArea>
-            <CharactersCheckboxDiv>
-              <label>
-                <CharactersCheckboxInput
-                  type="checkbox"
-                  onChange={() => handleChecked(character.id)}
-                />
-                <span class="label">XXX</span>
-              </label>
-            </CharactersCheckboxDiv>
+            {
 
-            <Link to={() => { }}>
-              <CharactersCardMedia
-                component="img"
-                image={charImgUrl ? charImgUrl : "/img/no-img.jpeg"}
-                title={character.name + ' image'}
-              />
 
-              <CharactersCardContent>
-                <CharactersTypography
-                  gutterBottom
-                  variant="h6"
-                  component="h2"
-                >
-                  {character.name}
-                </CharactersTypography>
-              </CharactersCardContent>
-            </Link>
+              user?.roles?.includes('ROLE_ADMIN') ? null
+                :
+                (
+                  <CharactersCheckboxDiv>
+                    <label>
+                      <CharactersCheckboxInput
+                        type="checkbox"
+                        onChange={() => handleChecked(character.id)}
+                      />
+                      <span className="label">XXX</span>
+                    </label>
+                  </CharactersCheckboxDiv>
+                )
+            }
+
+            {/* <Link to={() => { }}> */}
+            <CharactersCardMedia
+              component="img"
+              image={charImgUrl ? charImgUrl : "/img/no-img.jpeg"}
+              title={character.name + ' image'}
+            />
+
+            <CharactersCardContent>
+              <CharactersTypography
+                gutterBottom
+                variant="h6"
+                component="h2"
+              >
+                {character.name}
+              </CharactersTypography>
+            </CharactersCardContent>
+            {/* </Link> */}
           </CharactersCardActionArea>
         </CharactersCard>
       </CharactersGrid >

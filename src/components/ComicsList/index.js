@@ -5,9 +5,12 @@ import ScrollToTop from "../../common/ScrollToTop";
 import { Link, Redirect } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
+
+
 import { ComicsListLinkNext, ComicsListLinkPrevious } from "./styles";
 
 import Search from "../Search";
+
 
 import {
   ComicsListCard,
@@ -20,7 +23,18 @@ import {
   ComicsListPagination
 } from "./styles";
 
+import { useSelector } from "react-redux";
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+
+
 const ComicsList = (props) => {
+  const user = useSelector((state) => state.user);
+  console.log("ComicsList: ", user);
+
   const [comicsList, setComicsList] = useState([]);
   const [responseData, setResponseData] = useState();
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,14 +55,41 @@ const ComicsList = (props) => {
           let pageNum = props.match.params.page;
           const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/external/apiMarvel/comicList/${pageNum}`;
 
-          const { data } = await axios.get(url);
+          const configAxios = {
+            headers: {
+              'x-access-token': user?.accessToken
+            }
+          };
+
+          const { data } = await axios.get(url, configAxios);
 
           setComicsList(data.data.results);
           setResponseData(data.data);
           setLoading(false);
         } catch (e) {
-          console.log(e);
+          console.log("ComicsList failed", { e });
+
+          const { response } = e;
+          const data = response.data.error ? response.data.error : response.data;
+
+          if (response) {
+            MySwal.fire({
+              title: <p className="titleAlert">{data.description.message}</p>,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: 'green'
+            })
+          }
+          else {
+            MySwal.fire({
+              title: <p className="titleAlert">Something went wrong</p>,
+              icon: 'error',
+              confirmButtonText: 'Ok',
+              confirmButtonColor: 'green'
+            })
+          }
         }
+        setLoading(false);
       }
     }
     fetchData();

@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const ErrorDiv = styled("div")`
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+`;
+
 export const ErrorButtonBack = styled(Link)`
 	padding: 0.4rem 0.8rem;
   background-color: #e12f2f;

@@ -19,7 +19,17 @@ import {
   ComicsListsearchResultDiv
 } from "./styles";
 
+import { useSelector } from "react-redux";
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+
 const SearchResult = (props) => {
+  const user = useSelector((state) => state.user);
+  console.log("SearchResult: ", user);
+
   const searchTerm = String(props.match.params.query);
   const searchListing = props.match.params.listing;
   const [searchData, setSearchData] = useState([]);
@@ -35,12 +45,40 @@ const SearchResult = (props) => {
           setSearchData({ results: [] });
         } else {
           const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/external/apiMarvel/search/${searchListing}/${searchTerm}`;
-          const { data } = await axios.get(url);
+
+          const configAxios = {
+            headers: {
+              'x-access-token': user?.accessToken
+            }
+          };
+
+          const { data } = await axios.get(url, configAxios);
           setSearchData(data.data);
         }
         setLoading(false);
       } catch (e) {
-        console.log(e);
+        console.log("Characters failed", { e });
+
+        const { response } = e;
+        const data = response.data.error ? response.data.error : response.data;
+
+        if (response) {
+          MySwal.fire({
+            title: <p className="titleAlert">{data.description.message}</p>,
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: 'green'
+          })
+        }
+        else {
+          MySwal.fire({
+            title: <p className="titleAlert">Something went wrong</p>,
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: 'green'
+          })
+        }
+        setLoading(false);
       }
     }
     if (searchTerm) {

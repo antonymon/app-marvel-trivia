@@ -61,7 +61,8 @@
   "LoginSingInPassword": "Password",
   "LoginSingInTitlePlaceHolderEmail": "username@dominio.com",
   "LoginSingInTitlePlaceHolderPassword": "Password",
-  "LoginSingUpTitlePlaceHolderName": "Username",
+  "LoginSingUpTitlePlaceHolderName": "name",
   "LoginSingUpTitlePlaceHolderEmail": "username@dominio.com",
-  "LoginSingUpTitlePlaceHolderPassword": "Password"
+  "LoginSingUpTitlePlaceHolderPassword": "Password",
+  "LoginResultLoading": "Loading  😀!"
 }
