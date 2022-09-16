@@ -34,7 +34,7 @@ const SearchResult = (props) => {
         if (searchTerm === "0") {
           setSearchData({ results: [] });
         } else {
-          const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/search/${searchListing}/${searchTerm}`;
+          const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/external/apiMarvel/search/${searchListing}/${searchTerm}`;
           const { data } = await axios.get(url);
           setSearchData(data.data);
         }

@@ -39,7 +39,7 @@ const Characters = (props) => {
         let fetchData = [];
 
         for (let i = 0; i < charactersIds.length; i++) {
-          const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/characters/${charactersIds[i]}`;
+          const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/external/apiMarvel/characters/${charactersIds[i]}`;
           const { data } = await axios.get(url);
           fetchData.push(data.data.results[0]);
         }

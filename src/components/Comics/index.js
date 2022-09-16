@@ -40,7 +40,7 @@ const Comics = (props) => {
           setLoading(true);
 
           let comicId = props.match.params.id;
-          const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/comics/${comicId}`;
+          const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/external/apiMarvel/comics/${comicId}`;
 
           const { data } = await axios.get(url);
 

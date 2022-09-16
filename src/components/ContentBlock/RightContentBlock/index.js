@@ -40,7 +40,7 @@ const RightBlock = ({
                         key={id}
                         color={item.color}
                         fixedWidth={true}
-                        onClick={() => scrollTo("about")}
+                        onClick={() => scrollTo("sigin")}
                       >
                         {t(item.title)}
                       </Button>

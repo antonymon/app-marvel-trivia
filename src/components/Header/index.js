@@ -51,7 +51,7 @@ const Header = ({ t }) => {
           onClick={() => scrollTo("sigin")}
         >
           <Span>
-            <Button>{t("SigIn")}</Button>
+            <Button onClick={() => scrollTo("sigin")}>{t("SigIn")}</Button>
           </Span>
         </CustomNavLinkSmall>
       </>
