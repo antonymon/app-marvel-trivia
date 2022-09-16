@@ -1,4 +1,4 @@
-import { CircularProgress, Card, CardHeader, CardMedia, CardContent, Typography } from "@material-ui/core";
+import { CircularProgress, Card, CardHeader, CardMedia, CardContent, Typography } from "@mui/material";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 

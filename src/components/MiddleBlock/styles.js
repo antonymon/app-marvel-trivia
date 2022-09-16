@@ -25,6 +25,7 @@ export const ContentWrapper = styled("div")`
 `;
 
 export const Leaderboard = styled("div")`
+
   div {
     text-align: center;
     background-color: transparent;
@@ -153,6 +154,7 @@ export const Leaderboard = styled("div")`
     display: flex;
     justify-content: space-between;
     text-align: left;
+    width: 600px;
   }
 
   #table-title {
@@ -174,10 +176,9 @@ export const Leaderboard = styled("div")`
   }
 
   .avatar-table {
-    width: 40px;
-    background-color: #dfdee5;
+    width: 70px;
+    background-color: transparent;
     border-radius: 40px;
-    margin: 10px;
   }
 
   .txt-recently {
@@ -207,8 +208,8 @@ export const Leaderboard = styled("div")`
     background-color: #00cec9;
   }
 
-  .rounded-span {
-    padding: 5px 10px;
+  .rounded-span {    
     border-radius: 5px;
+    padding: 2px 3px;
   }
 `;

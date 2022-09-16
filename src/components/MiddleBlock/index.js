@@ -8,7 +8,12 @@ import {
   Leaderboard,
 } from "./styles";
 
+import { useSelector } from "react-redux";
+
 const MiddleBlock = ({ title, content, button, t, id }) => {
+  const user = useSelector((state) => state.user);
+  console.log("MiddleBlock: ", user);
+
   const scrollTo = (id) => {
     const element = document.getElementById(id);
     element.scrollIntoView({
@@ -25,40 +30,48 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
               {/* <Content>{t(content)}</Content> */}
               <Leaderboard>
                 <div className="content">
-                  <div className="info">
-                    <div className="card medium-card">
-                      <div className="left">
-                        <h2 className="small-txt">My Rank</h2>
-                        <h1 className="medium-txt">3RD PLACE</h1>
-                      </div>
-                      <div className="right">
-                        <h2 className="small-txt">My Score</h2>
-                        <h1 className="medium-txt">24</h1>
-                      </div>
-                    </div>
-                    <div className="dark profile medium-card">
-                      <h1 id="profile-top-txt">Top Sender Last Week</h1>
-                      <img
-                        alt=""
-                        className="card-avatar"
-                        src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads01&accessoriesType=Prescription01&hairColor=Blue&facialHairType=BeardMedium&facialHairColor=Auburn&clotheType=GraphicShirt&clotheColor=Gray02&graphicType=Skull&eyeType=Happy&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=Yellow"
-                      />
-                      <h1 id="profile-mid-txt">DANIEL RICCIARDO</h1>
-                      <h1 id="profile-bot-txt" className="blue">
-                        DANIEL RICCIARDO
-                      </h1>
-                    </div>
-                    <div className="dark profile medium-card">
-                      <h1 className="medium-txt">
-                        <span id="txt-recently-title">Recently Results</span>
-                      </h1>
-                      <div className="recent">
-                        <h1 className="txt-recently">5 minutes ago</h1>
-                        <h1 className="txt-recently">Nexivis</h1>
-                        <h1 className="txt-recently blue">500</h1>
-                      </div>
-                    </div>
-                  </div>
+                  {
+                    user?.accessToken
+                      ?
+                      (
+
+                        <div className="info">
+                          <div className="card medium-card">
+                            <div className="left">
+                              <h2 className="small-txt">My Rank</h2>
+                              <h1 className="medium-txt">3RD PLACE</h1>
+                            </div>
+                            <div className="right">
+                              <h2 className="small-txt">My Score</h2>
+                              <h1 className="medium-txt">24</h1>
+                            </div>
+                          </div>
+                          <div className="dark profile medium-card">
+                            <h1 id="profile-top-txt">Top Sender Last Week</h1>
+                            <img
+                              alt=""
+                              className="card-avatar"
+                              src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads01&accessoriesType=Prescription01&hairColor=Blue&facialHairType=BeardMedium&facialHairColor=Auburn&clotheType=GraphicShirt&clotheColor=Gray02&graphicType=Skull&eyeType=Happy&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=Yellow"
+                            />
+                            <h1 id="profile-mid-txt">DANIEL RICCIARDO</h1>
+                            <h1 id="profile-bot-txt" className="blue">
+                              DANIEL RICCIARDO
+                            </h1>
+                          </div>
+                          <div className="dark profile medium-card">
+                            <h1 className="medium-txt">
+                              <span id="txt-recently-title">Recently Results</span>
+                            </h1>
+                            <div className="recent">
+                              <h1 className="txt-recently">5 minutes ago</h1>
+                              <h1 className="txt-recently">Nexivis</h1>
+                              <h1 className="txt-recently blue">500</h1>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                      : null
+                  }
                   <div className="dark table-div">
                     <div id="top-table">
                       <h1 id="table-title">RECEIVED KUDOS</h1>
@@ -81,7 +94,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
                           <th data-label="Rank">
                             <h3>
                               <span className="gold-background rounded-span">
-                                1
+                                1<sup>st</sup>
                               </span>
                             </h3>
                           </th>
@@ -105,7 +118,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
                           <th data-label="Rank">
                             <h3>
                               <span className="silver-background rounded-span">
-                                2
+                                2<sup>nd</sup>
                               </span>
                             </h3>
                           </th>
@@ -129,7 +142,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
                           <th data-label="Rank">
                             <h3>
                               <span className="brown-background rounded-span">
-                                3
+                                3<sup>rd</sup>
                               </span>
                             </h3>
                           </th>
@@ -153,7 +166,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
                           <th data-label="Rank">
                             <h3>
                               <span className="blue-background rounded-span">
-                                4
+                                4 <sup>th</sup>
                               </span>
                             </h3>
                           </th>
@@ -175,6 +188,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
                       </tbody>
                     </table>
                   </div>
+
                 </div>
               </Leaderboard>
               {button && (

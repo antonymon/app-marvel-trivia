@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card, CardActionArea, CardMedia, Typography, Grid, CircularProgress, CardContent } from "@material-ui/core";
+import { Card, CardActionArea, CardMedia, Typography, Grid, CircularProgress, CardContent } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const ComicsListLinkNext = styled(Link)`

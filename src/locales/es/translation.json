@@ -1,8 +1,10 @@
 {
   "Home": "Home",
   "Play": "Jugar",
+  "MaintenancePlay": "Mantenimientos",
   "Leaderboard": "Clasificación",
   "SigIn": "Iniciar Sesión",
+  "Logout": "Cerrar Sesión",
   "TableOfLeaderboard": "Tabla de resultados",
   "WatchLeadearbord": "Ver Todos",
 
@@ -40,5 +42,25 @@
   "CharactersButtonPrevious": "Anterior",
   "CharactersResultLoading": "¡Cargando personajes 😀!",
 
-  "CharactersResultNotFound": "¡No se han encontrado resultados 😮!"
+  "CharactersResultNotFound": "¡No se han encontrado resultados 😮!",
+
+  "LoginTitle": "Iniciar Sesión",
+  "LoginSigIntitle": "Iniciar Sesión",
+  "LoginSingUpToggle": "Regístrate",
+  "LoginSingInToggle": "Inicia Sesión",
+  "LoginSingUpTitle": "Regístrate",
+  "LoginSingInTitle": "Inicia Sesión",
+  "LoginSingUpButton": "Regístrate",
+  "LoginSingInButton": "Inicia Sesión",
+  "LoginSingUpName": "Usuario",
+  "LoginSingUpEmail": "Correo Electrónico",
+  "LoginSingUpPassword": "Contraseña",
+  "LoginSingUpPasswordConfirm": "Confirmar Contraseña",
+  "LoginSingInEmail": "Correo Electrónico",
+  "LoginSingInPassword": "Contraseña",
+  "LoginSingInTitlePlaceHolderEmail": "username@dominio.com",
+  "LoginSingInTitlePlaceHolderPassword": "Contraseña",
+  "LoginSingUpTitlePlaceHolderName": "Usuario",
+  "LoginSingUpTitlePlaceHolderEmail": "username@dominio.com",
+  "LoginSingUpTitlePlaceHolderPassword": "Contraseña"
 }

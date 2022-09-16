@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
-export const CharactersCircularProgress = styled(CircularProgress)`
+export const LoginCircularProgress = styled(CircularProgress)`
 
 `;
 
-export const CharactersH1 = styled("h1")`
+export const LoginH1 = styled("h1")`
   font-size: 1.5rem;
   color: #fff;
   text-align: center;

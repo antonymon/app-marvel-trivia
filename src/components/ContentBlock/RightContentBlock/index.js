@@ -10,6 +10,8 @@ import {
   ButtonWrapper,
 } from "./styles";
 
+import { useSelector } from "react-redux";
+
 const RightBlock = ({
   title,
   content,
@@ -18,6 +20,9 @@ const RightBlock = ({
   t,
   id,
 }) => {
+  const user = useSelector((state) => state.user);
+  console.log("RightBlock: ", user);
+
   const scrollTo = (id) => {
     const element = document.getElementById(id);
     element.scrollIntoView({
@@ -32,21 +37,27 @@ const RightBlock = ({
             <ContentWrapper>
               <h6>{t(title)}</h6>
               <Content>{t(content)}</Content>
-              <ButtonWrapper>
-                {typeof button === "object" &&
-                  button.map((item, id) => {
-                    return (
-                      <Button
-                        key={id}
-                        color={item.color}
-                        fixedWidth={true}
-                        onClick={() => scrollTo("sigin")}
-                      >
-                        {t(item.title)}
-                      </Button>
-                    );
-                  })}
-              </ButtonWrapper>
+              {
+                user?.accessToken ? null
+                  :
+                  (
+                    <ButtonWrapper>
+                      {typeof button === "object" &&
+                        button.map((item, id) => {
+                          return (
+                            <Button
+                              key={id}
+                              color={item.color}
+                              fixedWidth={true}
+                              onClick={() => scrollTo("sigin")}
+                            >
+                              {t(item.title)}
+                            </Button>
+                          );
+                        })}
+                    </ButtonWrapper>
+                  )
+              }
             </ContentWrapper>
           </Col>
           <Col lg={11} md={11} sm={12} xs={24}>

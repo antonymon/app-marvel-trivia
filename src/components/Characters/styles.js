@@ -1,4 +1,4 @@
-import { CircularProgress, Card, CardHeader, CardMedia, CardContent, Typography, Grid, CardActionArea } from "@material-ui/core";
+import { CircularProgress, Card, CardHeader, CardMedia, CardContent, Typography, Grid, CardActionArea } from "@mui/material";
 import styled from "styled-components";
 
 export const ComicsContainer = styled("div")`  

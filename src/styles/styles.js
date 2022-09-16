@@ -125,4 +125,18 @@ export const Styles = createGlobalStyle`
     .ant-drawer-content-wrapper {
         width: 300px !important;
     }
+
+    .swal2-container{       
+        button {
+            font-family: 'Marvel Regular', sans-serif;
+            font-size: 1.3rem !important;
+            font-weight: 600;
+        }
+    }
+
+    .titleAlert {
+        font-family: 'Marvel Bold', sans-serif;
+        font-size: 1.5rem;
+        color: #2A2B38;
+    }
 `;

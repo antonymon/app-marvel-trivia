@@ -1,12 +1,31 @@
 import { withTranslation } from "react-i18next";
-import { LoginContainer, CharactersH1, CharactersCircularProgress } from "./styles";
+import {
+    LoginContainer,
+    LoginH1,
+    LoginCircularProgress
+} from "./styles";
+
 import { SvgIcon } from "../../common/SvgIcon";
 import { Button } from "../../common/Button";
 import { useState } from "react";
 
 import axios from "axios";
 
+import { useDispatch } from 'react-redux';
+import { singIn } from '../../redux/userSlice';
+
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
+
+
+
 const Login = (props) => {
+
+    const dispatch = useDispatch();
+
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -25,41 +44,118 @@ const Login = (props) => {
         setPassword(e.target.value);
     }
 
-    const handleSubmitSignIn = (e) => {
+    const handleSubmitSignIn = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        singIn();
-        setLoading(false);
+        console.log("handleSubmitSignIn");
+        if (email === "" || password === "") {
+            MySwal.fire({
+                title: <p className="titleAlert">Email or Password is empty</p>,
+                icon: 'error',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: 'green'
+            })
+        } else {
+            setLoading(true);
+            await singInSendData();
+            setLoading(false);
+        }
     };
 
-    const handleSubmitSignUp = (e) => {
+    const handleSubmitSignUp = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        singUp();
-        setLoading(false);
+        console.log("handleSubmitSignUp");
+        if (name === "" || email === "" || password === "") {
+            MySwal.fire({
+                title: <p className="titleAlert">Name, Email or Password is empty</p>,
+                icon: 'error',
+                confirmButtonText: 'Ok',
+                confirmButtonColor: 'green'
+            })
+        } else {
+            setLoading(true);
+            await singUpSendData();
+            setLoading(false);
+        }
     };
 
     const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/auth/signin`;
 
-    async function singIn() {
+    async function singInSendData() {
         try {
+            console.log("singIn");
+
+            setLoading(true);
 
             let user = {
-                username: email,
+                email: email,
                 password: password
             }
 
             const { data } = await axios.post(url, user);
-            console.log({ data });
+
+            setLoading(false);
+
+            if (data) {
+                console.log("login success" + data);
+
+                dispatch(singIn(data));
+
+                MySwal.fire({
+                    title: <p className="titleAlert">Success!</p>,
+                    text: 'You have been logged in!',
+                    icon: 'success',
+                    timer: 1000,
+                    showConfirmButton: false,
+                    willClose: () => {
+                        window.location.href = "/home";
+                    }
+                })
+            }
+            else {
+                console.log("login failed");
+
+                MySwal.fire({
+                    title: <p className="titleAlert">Error!</p>,
+                    text: 'Something went wrong!',
+                    icon: 'error',
+                    timer: 2000,
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: 'green'
+                })
+            }
+
+
         }
         catch (e) {
-            console.log(e);
+            console.log("login failed");
+
+            const { response } = e;
+            if (response) {
+                const { data } = response;
+                MySwal.fire({
+                    title: <p className="titleAlert">{data.description.message}</p>,
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: 'green'
+                })
+            }
+            else {
+                MySwal.fire({
+                    title: <p className="titleAlert">Something went wrong</p>,
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: 'green'
+                })
+            }
         }
     }
 
-    async function singUp() {
+    async function singUpSendData() {
         try {
+            console.log("singUp");
+
             setLoading(true);
+
             let user = {
                 username: name,
                 email: email,
@@ -67,23 +163,96 @@ const Login = (props) => {
             }
 
             const { data } = await axios.post(url, user);
-            console.log({ data });
+
+            setLoading(false);
+
+            if (data) {
+                console.log("singUp success" + data);
+
+                //dispatch(singUp(data));
+                let user = {
+                    email: email,
+                    password: password
+                }
+
+                const dataLogin = await axios.post(url, user);
+
+                if (dataLogin.data) {
+                    console.log("login success" + dataLogin.data);
+
+                    dispatch(singIn(dataLogin.data));
+                    MySwal.fire({
+                        title: <p className="titleAlert">Success!</p>,
+                        text: 'You have registred!',
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false,
+                        willClose: () => {
+                            window.location.href = "/singin";
+                        }
+                    })
+                }
+                else {
+                    MySwal.fire({
+                        title: <p className="titleAlert">Something went wrong</p>,
+                        icon: 'error',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: 'green'
+                    })
+                }
+
+
+            }
+            else {
+                console.log("singUp failed");
+
+                MySwal.fire({
+                    title: <p className="titleAlert">Error!</p>,
+                    text: 'Something went wrong!',
+                    icon: 'error',
+                    timer: 2000,
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: 'green'
+                })
+            }
+
+
         }
         catch (e) {
-            console.log(e);
+            console.log("singUp failed");
+
+            const { response } = e;
+            if (response) {
+                const { data } = response;
+                MySwal.fire({
+                    title: <p className="titleAlert">{data.description.message}</p>,
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: 'green'
+                })
+            }
+            else {
+                MySwal.fire({
+                    title: <p className="titleAlert">Something went wrong</p>,
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: 'green'
+                })
+            }
         }
     }
 
     if (loading) {
         return (
             <>
-                <CharactersCircularProgress />
-                <CharactersH1>{props.t("CharactersResultLoading")}</CharactersH1>
+                <LoginCircularProgress />
+                <LoginH1>{props.t("CharactersResultLoading")}</LoginH1>
             </>
         );
     }
     else {
         return (
+
             <LoginContainer>
                 <h6 className="title" id={props.id}>{props.t("LoginTitle")}</h6>
                 <input id="input" className="input" type="checkbox" />
@@ -147,7 +316,7 @@ const Login = (props) => {
 
                         <div className="submit">
                             <Button name="submit" type="submit" className="button-submit" onClick={handleSubmitSignIn}>
-                                {props.t("LoginSigInButton")}
+                                {props.t("LoginSingInButton")}
                             </Button>
                         </div>
                     </div>

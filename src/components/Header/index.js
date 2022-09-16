@@ -16,7 +16,15 @@ import {
   Span,
 } from "./styles";
 
+import { useSelector, useDispatch } from "react-redux";
+import { Logout } from "../../redux/userSlice";
+
 const Header = ({ t }) => {
+  const user = useSelector((state) => state.user);
+  console.log("Header: ", user);
+
+  const dispatch = useDispatch();
+
   const [visible, setVisibility] = useState(false);
 
   const showDrawer = () => {
@@ -40,20 +48,63 @@ const Header = ({ t }) => {
         <CustomNavLinkSmall onClick={() => scrollTo("intro")}>
           <Span>{t("Home")}</Span>
         </CustomNavLinkSmall>
-        <CustomNavLinkSmall onClick={() => scrollTo("mission")}>
-          <Span>{t("Play")}</Span>
-        </CustomNavLinkSmall>
+        {
+          user?.accessToken && user?.roles?.includes("ROLE_USER")
+            ?
+            (
+              <CustomNavLinkSmall onClick={() => scrollTo("play")}>
+                <Span>{t("Play")}</Span>
+              </CustomNavLinkSmall>
+            )
+            : null
+        }
+        {
+          user?.accessToken && user?.roles?.includes("ROLE_ADMIN")
+            ?
+            (
+              <CustomNavLinkSmall onClick={() => scrollTo("maintenanceplay")}>
+                <Span>{t("MaintenancePlay")}</Span>
+              </CustomNavLinkSmall>
+            )
+            : null
+        }
+
         <CustomNavLinkSmall onClick={() => scrollTo("leaderboard")}>
           <Span>{t("Leaderboard")}</Span>
         </CustomNavLinkSmall>
-        <CustomNavLinkSmall
-          style={{ width: "180px" }}
-          onClick={() => scrollTo("sigin")}
-        >
-          <Span>
-            <Button onClick={() => scrollTo("sigin")}>{t("SigIn")}</Button>
-          </Span>
-        </CustomNavLinkSmall>
+
+        {user?.accessToken
+          ? (
+            <>
+              <CustomNavLinkSmall
+                style={{ width: "180px" }}
+                onClick={() => {
+                  dispatch(Logout());
+                  window.location.href = "/home";
+                }}
+              >
+                <Span>
+                  <Button onClick={() => scrollTo("home")}>{t("Logout")}</Button>
+                </Span>
+
+              </CustomNavLinkSmall>
+            </>
+          )
+          :
+          (
+            <>
+              <CustomNavLinkSmall
+                style={{ width: "180px" }}
+                onClick={() => scrollTo("sigin")}
+              >
+                <Span>
+                  <Button onClick={() => scrollTo("sigin")}>{t("SigIn")}</Button>
+                </Span>
+
+              </CustomNavLinkSmall>
+            </>
+          )
+        }
       </>
     );
   };

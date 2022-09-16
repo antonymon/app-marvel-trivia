@@ -1,8 +1,10 @@
 {
   "Home": "Home",
   "Play": "Play",
+  "MaintenancePlay": "Maintenance Play",
   "Leaderboard": "Leaderboard",
   "SigIn": "SigIn",
+  "Logout": "Logout",
   "TableOfLeaderboard": "Table of Leaderboard",
   "WatchLeadearbord": "See Everything",
 
@@ -41,5 +43,25 @@
   "CharactersButtonPrevious": "Previous",
   "CharactersResultLoading": "Loading characters 😀!",
   "CharactersButtonBack": "Characters list",
-  "CharactersResultNotFound": "No results found 😮!"
+  "CharactersResultNotFound": "No results found 😮!",
+
+  "LoginTitle": "Login",
+  "LoginSigIntitle": "SigIn",
+  "LoginSingUpToggle": "Sign up",
+  "LoginSingInToggle": "Sign in",
+  "LoginSingUpTitle": "Sign up",
+  "LoginSingInTitle": "Sign in",
+  "LoginSingUpButton": "Sign up",
+  "LoginSingInButton": "Sign in",
+  "LoginSingUpName": "Userna",
+  "LoginSingUpEmail": "Email",
+  "LoginSingUpPassword": "Password",
+  "LoginSingUpPasswordConfirm": "Confirm password",
+  "LoginSingInEmail": "Email",
+  "LoginSingInPassword": "Password",
+  "LoginSingInTitlePlaceHolderEmail": "username@dominio.com",
+  "LoginSingInTitlePlaceHolderPassword": "Password",
+  "LoginSingUpTitlePlaceHolderName": "Username",
+  "LoginSingUpTitlePlaceHolderEmail": "username@dominio.com",
+  "LoginSingUpTitlePlaceHolderPassword": "Password"
 }
