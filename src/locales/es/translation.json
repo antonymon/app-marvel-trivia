@@ -35,6 +35,7 @@
   "ComicsTitleCharacters": "Personajes:",
   "ComicsDescriptionCharacters": "Personajes no disponibles.",
   "ComicsButtonBack": "Lista de cómics",
+  "ComicsButtonBackCharacter": "Lista de personajes",
 
   "Error404": "Error 404: ¡Página no encontrada 😢!",
 
@@ -63,5 +64,16 @@
   "LoginSingUpTitlePlaceHolderName": "Nombre",
   "LoginSingUpTitlePlaceHolderEmail": "username@dominio.com",
   "LoginSingUpTitlePlaceHolderPassword": "Contraseña",
-  "LoginResultLoading": "¡Cargando 😀!"
+  "LoginResultLoading": "¡Cargando 😀!",
+
+  "MaintenanceTitle": "Preguntas",
+  "MaintenanceTitleComic": "Cómic",
+  "MaintenanceTitleCharacter": "Personaje",
+  "MaintenanceTitleQuestion": "Pregunta",
+  "MaintenanceTitleTypeQuestion": "Tipo de pregunta",
+  "MaintenanceTitleAnswerPosibility": "Respuestas posibles",
+  "MaintenanceTitleAnswer": "Respuesta",
+  "MaintenanceTitlePoints": "Puntos",
+  "MaintenanceTitleOption": "Opción",
+  "MaintenanceTitleButtonAdd": "Agregar"
 }

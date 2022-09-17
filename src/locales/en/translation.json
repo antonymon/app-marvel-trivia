@@ -36,6 +36,7 @@
   "ComicsTitleCharacters": "Characters:",
   "ComicsDescriptionCharacters": "Characters not available.",
   "ComicsButtonBack": "Comics list",
+  "ComicsButtonBackCharacter": "Characters list",
 
   "Error404": "Error 404: Page not found 😢!",
 
@@ -64,5 +65,16 @@
   "LoginSingUpTitlePlaceHolderName": "name",
   "LoginSingUpTitlePlaceHolderEmail": "username@dominio.com",
   "LoginSingUpTitlePlaceHolderPassword": "Password",
-  "LoginResultLoading": "Loading  😀!"
+  "LoginResultLoading": "Loading  😀!",
+
+  "MaintenanceTitle": "Question's",
+  "MaintenanceTitleComic": "Comic",
+  "MaintenanceTitleCharacter": "Character",
+  "MaintenanceTitleQuestion": "Question",
+  "MaintenanceTitleTypeQuestion": "Type of question",
+  "MaintenanceTitleAnswerPosibility": "Answer posibility",
+  "MaintenanceTitleAnswer": "Answer",
+  "MaintenanceTitlePoints": "Points",
+  "MaintenanceTitleOption": "Option",
+  "MaintenanceTitleButtonAdd": "Add"
 }

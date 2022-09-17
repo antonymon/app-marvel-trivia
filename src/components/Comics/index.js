@@ -17,38 +17,27 @@ import {
   ComicsP,
   ComicsDiv,
   ComicsDivButton,
-  ComicsTableContainer
+  ComicsButtonBackCharacter
 } from "./styles";
 
 import { Col, Row } from "antd";
 
 import Characters from "../../components/Characters";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { SvgIcon } from "../../common/SvgIcon";
+
+import Maintenance from "../Maintenance";
+
 
 const MySwal = withReactContent(Swal);
 
 const Comics = (props) => {
   const user = useSelector((state) => state.user);
-  const maintenance = useSelector((state) => state.user.maintenance);
-  const dispatch = useDispatch();
 
-  console.log("Comics: ", user, maintenance);
-
-  const [isMaintenance, setMaintenance] = useState(false);
-
-  useEffect(() => {
-    console.log("useEffect Comics Maintenance");
-    console.log({ maintenance });
-    if (maintenance?.isMaintenance)
-      setMaintenance(true);
-    else
-      setMaintenance(false);
-  }, [maintenance, dispatch]);
+  console.log("Comics: ", user);
 
   const [comicData, setComicData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -113,6 +102,16 @@ const Comics = (props) => {
     // eslint-disable-next-line
   }, [props.match.params.id]);
 
+
+  const [isMaintenance, setMaintenance] = useState(false);
+  const [character, setCharacter] = useState(null);
+
+  const handlerComics = ({ isMaintenance, data }) => {
+    setMaintenance(isMaintenance);
+    setCharacter(data);
+    console.log("handlerComics: ", isMaintenance, data);
+  }
+
   if (loading) {
     return (
       <div>
@@ -132,119 +131,133 @@ const Comics = (props) => {
       <>
         <ScrollToTop component={"comics"} />
         <ComicsDivButton id="comics">
-          <ComicsButtonBack to="/comics/page/0">
-            {props.t("ComicsButtonBack")}
-          </ComicsButtonBack>
+          {!isMaintenance ? (
+            <ComicsButtonBack to="/comics/page/0">
+              {props.t("ComicsButtonBack")}
+            </ComicsButtonBack>
+          )
+            : (
+              <ComicsButtonBackCharacter onClick={() => {
+                setMaintenance(false);
+                setCharacter(null);
+              }}>
+                {props.t("ComicsButtonBackCharacter")}
+              </ComicsButtonBackCharacter>
+            )
+          }
         </ComicsDivButton>
 
         <ComicsContainer>
+
           <Row justify="space-between">
             <Row>
-              <Col lg={11} md={11} sm={12} xs={24}>
-                <ComicsCard variant="outlined">
+              {!isMaintenance ? (
+                <>
+                  <Col lg={11} md={11} sm={12} xs={24}>
+                    <ComicsCard variant="outlined">
 
-                  <ComicsCardHeader title={comicData.title} />
-                  <ComicsCardMedia
-                    component="img"
-                    image={charImgUrl ? charImgUrl : "/img/no-img.jpeg"}
-                    title={comicData.title + " image"}
-                  />
-                  <ComicsCardContent>
-                    <ComicsTypography variant="body2" color="textSecondary" component="span">
-                      <div>
-                        <div>
-                          <ComicsTitle>{props.t("ComicsTitleDescription")} </ComicsTitle>
-                          <ComicsP>
-                            {comicData.description
-                              ? comicData.description.replaceAll("<br>", "")
-                              : props.t("ComicsDescription")
-                            }
-                          </ComicsP>
-                        </div>
-                        <div>
-                          <ComicsTitle>
-                            {props.t("ComicsTitleCharacters")}{" "}
-                            {comicData.characters.available > 0
-                              ? comicData.characters.available
-                              : props.t("ComicsDescriptionCharacters")}
-                          </ComicsTitle>
-                          <ComicsDiv>
-                            <ol>
-                              {comicData.characters.items.map((item, index) => (
-                                <li key={index}>{item.name}</li>
-                              ))}
-                            </ol>
-                          </ComicsDiv>
-                        </div>
-                      </div>
-                    </ComicsTypography>
-                  </ComicsCardContent>
-                </ComicsCard>
-              </Col>
-              <Col lg={11} md={11} sm={12} xs={24}>
-                <CharactersCards>
-                  <Characters {...props} characters={characters} />
-                </CharactersCards>
-              </Col>
+                      <ComicsCardHeader title={comicData.title} />
+                      <ComicsCardMedia
+                        component="img"
+                        image={charImgUrl ? charImgUrl : "/img/no-img.jpeg"}
+                        title={comicData.title + " image"}
+                      />
+                      <ComicsCardContent>
+                        <ComicsTypography variant="body2" color="textSecondary" component="span">
+                          <div>
+                            <div>
+                              <ComicsTitle>{props.t("ComicsTitleDescription")} </ComicsTitle>
+                              <ComicsP>
+                                {comicData.description
+                                  ? comicData.description.replaceAll("<br>", "")
+                                  : props.t("ComicsDescription")
+                                }
+                              </ComicsP>
+                            </div>
+                            <div>
+                              <ComicsTitle>
+                                {props.t("ComicsTitleCharacters")}{" "}
+                                {comicData.characters.available > 0
+                                  ? comicData.characters.available
+                                  : props.t("ComicsDescriptionCharacters")}
+                              </ComicsTitle>
+                              <ComicsDiv>
+                                <ol>
+                                  {comicData.characters.items.map((item, index) => (
+                                    <li key={index}>{item.name}</li>
+                                  ))}
+                                </ol>
+                              </ComicsDiv>
+                            </div>
+                          </div>
+                        </ComicsTypography>
+                      </ComicsCardContent>
+                    </ComicsCard>
+                  </Col>
+                  <Col lg={11} md={11} sm={12} xs={24}>
+                    <CharactersCards>
+                      <Characters {...props} characters={characters} handler={handlerComics} />
+                    </CharactersCards>
+                  </Col>
+                </>
+              ) : null
+              }
+
+
+
+              {!isMaintenance ? null
+                :
+                (
+                  <Row justify="center">
+                    <Col lg={6} md={24} sm={24} xs={24}>
+                      <ComicsCard variant="outlined">
+
+                        <ComicsCardHeader title={comicData.title} />
+                        <ComicsCardMedia
+                          component="img"
+                          image={charImgUrl ? charImgUrl : "/img/no-img.jpeg"}
+                          title={comicData.title + " image"}
+                        />
+                        <ComicsCardContent>
+                          <ComicsTypography variant="body2" color="textSecondary" component="span">
+                            <div>
+                              <div>
+                                <ComicsTitle>{props.t("ComicsTitleDescription")} </ComicsTitle>
+                                <ComicsP>
+                                  {comicData.description
+                                    ? comicData.description.replaceAll("<br>", "")
+                                    : props.t("ComicsDescription")
+                                  }
+                                </ComicsP>
+                              </div>
+                              <div>
+                                <ComicsTitle>
+                                  {props.t("ComicsTitleCharacters")}{" "}
+                                  {comicData.characters.available > 0
+                                    ? comicData.characters.available
+                                    : props.t("ComicsDescriptionCharacters")}
+                                </ComicsTitle>
+                                <ComicsDiv>
+                                  <ol>
+                                    {comicData.characters.items.map((item, index) => (
+                                      <li key={index}>{item.name}</li>
+                                    ))}
+                                  </ol>
+                                </ComicsDiv>
+                              </div>
+                            </div>
+                          </ComicsTypography>
+                        </ComicsCardContent>
+                      </ComicsCard>
+                    </Col>
+                    <Col lg={18} md={24} sm={24} xs={30}>
+                      <Maintenance comic={comicData} character={character} />
+                    </Col>
+                  </Row>
+                )
+              }
             </Row>
           </Row >
-
-          {
-            isMaintenance ?
-              (
-                <ComicsTableContainer>
-                  <h6>Question's</h6>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th>#</th>
-                        <th>Comic</th>
-                        <th>Character</th>
-                        <th>Type Question</th>
-                        <th>Question</th>
-                        <th>Answer</th>
-                        <th>Points</th>
-                        <th>Options</th>
-                      </tr>
-                      <tr>
-                        <td data-th="#">
-                          UPS5005
-                        </td>
-                        <td data-th="Comic">
-                          UPS
-                        </td>
-                        <td data-th="Character">
-                          ASDF19218
-                        </td>
-                        <td data-th="Type Question">
-                          06/25/2016
-                        </td>
-                        <td data-th="Question">
-                          12/25/2016
-                        </td>
-                        <td data-th="Answer">
-                          $8,322.12
-                        </td>
-                        <td data-th="Points">
-                          10
-                        </td>
-                        <td data-th="Options">
-                          <span>
-                            <SvgIcon src={"edit.svg"} alt={"edit.svg"} width={"auto"} height={"auto"} />
-                          </span>
-                          <span>
-                            <SvgIcon src={"delete.svg"} alt={"delete.svg"} width={"auto"} height={"auto"} />
-                          </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </ComicsTableContainer>
-              )
-              : null
-          }
-
-
         </ComicsContainer>
       </>
     );

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 import ScrollToTop from "../../common/ScrollToTop";
 
@@ -21,8 +20,7 @@ import {
   CharactersCheckboxInput
 } from "./styles";
 
-import { useSelector, useDispatch } from "react-redux";
-import { Maintenance } from '../../redux/userSlice';
+import { useSelector } from "react-redux";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -35,19 +33,6 @@ const Characters = (props) => {
 
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const [isMaintenance, setMaintenance] = useState(false);
-  const [character, setCharacter] = useState(null);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log("useEffect Characters Maintenance");
-    console.log({ character, isMaintenance });
-    if (isMaintenance)
-      dispatch(Maintenance({ isMaintenance: isMaintenance, data: character }));
-    else
-      dispatch(Maintenance({ isMaintenance: isMaintenance, data: null }));
-  }, [isMaintenance, character, dispatch]);
 
   let card = null;
 
@@ -155,8 +140,14 @@ const Characters = (props) => {
               title={character.name + ' image'}
               onClick={() => {
                 if (user?.roles?.includes('ROLE_ADMIN')) {
-                  setMaintenance(true);
-                  setCharacter(character);
+                  console.log({
+                    isMaintenance: true,
+                    data: character
+                  });
+                  props.handler({
+                    isMaintenance: true,
+                    data: character
+                  });
                 }
               }}
             />

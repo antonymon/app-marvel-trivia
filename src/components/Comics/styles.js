@@ -9,6 +9,7 @@ import {
 
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Button } from "antd";
 
 export const ComicsContainer = styled("div")`  
     background-color: #1f2029 !important;
@@ -121,106 +122,20 @@ export const ComicsButtonBack = styled(Link)`
   }
 `;
 
-export const ComicsTableContainer = styled("div")`
-  margin-bottom: 1rem !important;
-  h6 {
-    display: flex;
-    justify-content: center;
-    font-size: 1.5rem;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
+export const ComicsButtonBackCharacter = styled(Button)`
+	padding: 0.4rem 0.8rem;
+  background-color: #e12f2f;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none !important;
+  margin: 10px auto;
+  border: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
 
-  tr:first-child {
-    border-top: none;
-    background: transparent;
-    color: #fff;
-  }
-
-  tr {
-    border-top: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+  &:hover {
     background-color: transparent;
-  }
-
-  tr:nth-child(odd):not(:first-child) {
-    background-color: transparent;
-  }
-
-  th {
-    display: none;
-  }
-
-  td {
-    display: block;
-  }
-
-  td:first-child {
-    margin-top: .5em;
-  }
-
-  td:last-child {
-    margin-bottom: .5em;
-  }
-
-  td:before {
-    content: attr(data-th) ": ";
-    font-weight: bold;
-    width: 120px;
-    display: inline-block;
-    color: #fff;
-  }
-
-  th,
-  td {
-    text-align: left;
-  }
-
-    color: #fff;
-    border-radius: .4em;
-    overflow: hidden;
-  
-
-  tr {
-    border-color: #fff;
-  }
-
-  th,
-  td {
-    padding: .5em 1em;
-  }
-
-    @media screen and (max-width: 601px) {
-      tr:nth-child(2) {
-        border-top: none;
-      }
-    }
-    @media screen and (min-width: 600px) {
-      tr:hover:not(:first-child) {
-        /* background-color: #d8e7f3; */
-        background-color: rgba(255, 255, 255, 0.3);
-      }
-      td:before {
-        display: none;
-      }
-      th,
-      td {
-        display: table-cell;
-        padding: .25em .5em;
-      }
-      th:first-child,
-      td:first-child {
-        padding-left: 0;
-      }
-      th:last-child,
-      td:last-child {
-        padding-right: 0;
-      }
-      th,
-      td {
-        padding: 1em !important;
-      }
+    color: #e12f2f;
+    border: 2px solid #e12f2f;
   }
 `;
