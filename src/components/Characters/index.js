@@ -21,7 +21,9 @@ import {
   CharactersCheckboxInput
 } from "./styles";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Maintenance } from '../../redux/userSlice';
+
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
@@ -34,6 +36,18 @@ const Characters = (props) => {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [isMaintenance, setMaintenance] = useState(false);
+  const [character, setCharacter] = useState(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("useEffect Characters Maintenance");
+    console.log({ character, isMaintenance });
+    if (isMaintenance)
+      dispatch(Maintenance({ isMaintenance: isMaintenance, data: character }));
+    else
+      dispatch(Maintenance({ isMaintenance: isMaintenance, data: null }));
+  }, [isMaintenance, character, dispatch]);
 
   let card = null;
 
@@ -119,8 +133,6 @@ const Characters = (props) => {
         <CharactersCard variant="outlined">
           <CharactersCardActionArea>
             {
-
-
               user?.roles?.includes('ROLE_ADMIN') ? null
                 :
                 (
@@ -141,6 +153,12 @@ const Characters = (props) => {
               component="img"
               image={charImgUrl ? charImgUrl : "/img/no-img.jpeg"}
               title={character.name + ' image'}
+              onClick={() => {
+                if (user?.roles?.includes('ROLE_ADMIN')) {
+                  setMaintenance(true);
+                  setCharacter(character);
+                }
+              }}
             />
 
             <CharactersCardContent>

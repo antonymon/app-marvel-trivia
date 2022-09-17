@@ -139,4 +139,5 @@ export const Styles = createGlobalStyle`
         font-size: 1.5rem;
         color: #2A2B38;
     }
+    
 `;

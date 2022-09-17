@@ -16,22 +16,39 @@ import {
   ComicsCircularProgress,
   ComicsP,
   ComicsDiv,
-  ComicsDivButton
+  ComicsDivButton,
+  ComicsTableContainer
 } from "./styles";
+
 import { Col, Row } from "antd";
 
 import Characters from "../../components/Characters";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { SvgIcon } from "../../common/SvgIcon";
 
 const MySwal = withReactContent(Swal);
 
 const Comics = (props) => {
   const user = useSelector((state) => state.user);
-  console.log("Comics: ", user);
+  const maintenance = useSelector((state) => state.user.maintenance);
+  const dispatch = useDispatch();
+
+  console.log("Comics: ", user, maintenance);
+
+  const [isMaintenance, setMaintenance] = useState(false);
+
+  useEffect(() => {
+    console.log("useEffect Comics Maintenance");
+    console.log({ maintenance });
+    if (maintenance?.isMaintenance)
+      setMaintenance(true);
+    else
+      setMaintenance(false);
+  }, [maintenance, dispatch]);
 
   const [comicData, setComicData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -171,6 +188,63 @@ const Comics = (props) => {
               </Col>
             </Row>
           </Row >
+
+          {
+            isMaintenance ?
+              (
+                <ComicsTableContainer>
+                  <h6>Question's</h6>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th>#</th>
+                        <th>Comic</th>
+                        <th>Character</th>
+                        <th>Type Question</th>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Points</th>
+                        <th>Options</th>
+                      </tr>
+                      <tr>
+                        <td data-th="#">
+                          UPS5005
+                        </td>
+                        <td data-th="Comic">
+                          UPS
+                        </td>
+                        <td data-th="Character">
+                          ASDF19218
+                        </td>
+                        <td data-th="Type Question">
+                          06/25/2016
+                        </td>
+                        <td data-th="Question">
+                          12/25/2016
+                        </td>
+                        <td data-th="Answer">
+                          $8,322.12
+                        </td>
+                        <td data-th="Points">
+                          10
+                        </td>
+                        <td data-th="Options">
+                          <span>
+                            <SvgIcon src={"edit.svg"} alt={"edit.svg"} width={"auto"} height={"auto"} />
+                          </span>
+                          <span>
+                            <SvgIcon src={"delete.svg"} alt={"delete.svg"} width={"auto"} height={"auto"} />
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </ComicsTableContainer>
+              )
+              : null
+          }
+
+
         </ComicsContainer>
       </>
     );

@@ -11,22 +11,22 @@ export const CharactersCircularProgress = styled(CircularProgress)`
 
 export const CharactersCard = styled(Card)`
   background-color: #1f2029 !important;
-  max-width: 200px; 
-  height: auto; 
+  max-width: 100px; 
+  height: 190px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: auto;
-  border-radius: 5;  
+  margin-bottom: 5px;
+  border-radius: 5; 
   border: 1px solid #fff !important;  
 `;
 
 export const CharactersTypography = styled(Typography)`
   font-weight: bold;
-  font-size: 1rem !important;
+  font-size: 0.8rem !important;
 `;
 
 export const CharactersGrid = styled(Grid)`
-
+  
 `;
 
 export const CharactersH1 = styled("h1")`
