@@ -14,6 +14,8 @@ import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 const Maintenance = (props) => {
+    // const forceUpdate = useForceUpdate();
+
     console.log("Maintenance: ");
     console.log({ comic: props.comic, character: props.character });
 
@@ -24,7 +26,7 @@ const Maintenance = (props) => {
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [isRefreshView, setIsRefreshView] = useState(false);
+    const [forceUpdate, setForceUpdate] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
@@ -75,16 +77,12 @@ const Maintenance = (props) => {
             }
         }
 
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        if (isRefreshView) {
-            window.location.reload();
-            setIsRefreshView(false);
+        if (forceUpdate) {
+            fetchData();
+            setForceUpdate(false);
         }
-    }, [isRefreshView]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [forceUpdate]);
 
     const htmlFormNewQuestionType = (type = 1) => {
         let html = `
@@ -168,7 +166,7 @@ const Maintenance = (props) => {
                 console.log("preConfirm");
                 const tipoPregunta = document.getElementById('tipoPregunta').value;
                 console.log("tipoPregunta :", { tipoPregunta });
-                return tipoPregunta;
+                return { tipoPregunta };
             }
         }).then((result) => {
             if (parseInt(result.value.tipoPregunta) === 2) {
@@ -269,7 +267,7 @@ const Maintenance = (props) => {
                         const pregunta = document.getElementById('pregunta').value;
                         const respuesta = document.getElementById('respuesta1').checked ? "Verdadero" : "Falso";
                         const puntos = document.getElementById('puntos').value;
-                        return { pregunta, respuesta, puntos };
+                        return { pregunta, respuesta, puntos, tipoPregunta: parseInt(result.value.tipoPregunta) };
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -280,6 +278,7 @@ const Maintenance = (props) => {
                             handleNewQuestion(result.value, parseInt(result.value.tipoPregunta), {
                                 respuestaPosible: "True|False"
                             });
+                            return;
                         } else {
                             console.log("getInfoQuestion edit: ", result.value);
                             handleEditQuestion(result.value, parseInt(result.value.tipoPregunta), {
@@ -356,6 +355,7 @@ const Maintenance = (props) => {
             }
         }
         await fetchDataNewQuestion();
+        setForceUpdate(!forceUpdate);
     }
 
     const handleDeleteQuestion = async (id) => {
@@ -398,6 +398,7 @@ const Maintenance = (props) => {
                         confirmButtonColor: 'green'
                     })
                 }
+
                 setLoading(false);
 
                 if (response.status === 401) {
@@ -407,6 +408,7 @@ const Maintenance = (props) => {
             }
         }
         await fetchDataDeleteQuestion();
+        setForceUpdate(!forceUpdate);
     }
 
     const handleEditQuestion = async (value, typeQuestion, _data, id) => {
@@ -468,6 +470,7 @@ const Maintenance = (props) => {
             }
         }
         await fetchDataEditQuestion();
+        setForceUpdate(!forceUpdate);
     }
 
 
@@ -486,7 +489,7 @@ const Maintenance = (props) => {
                 <div>
                     <MaintenanceButtonAdd onClick={() => {
                         getInfoQuestion();
-                        setIsRefreshView(true);
+
                     }}>
                         {props.t("MaintenanceTitleButtonAdd")}
                     </MaintenanceButtonAdd>
@@ -507,10 +510,10 @@ const Maintenance = (props) => {
                                 <th>{props.t("MaintenanceTitleOption")}</th>
                             </tr>
                             {
-                                questions?.map((question, index) => {
+                                questions?.sort((a, b) => b.id - a.id).map((question, index) => {
                                     return (
-                                        <tr>
-                                            <td data-th="#" key={question.id}>
+                                        <tr key={question.id}>
+                                            <td data-th="#">
                                                 {question.id}
                                             </td>
                                             <td data-th="Comic">
@@ -532,7 +535,7 @@ const Maintenance = (props) => {
                                                     {
                                                         question?.awserPosibility?.split('|')?.map((answer, index) => {
                                                             return (
-                                                                <li>
+                                                                <li key={`li:${question.id}:${index}`}>
                                                                     <span>{answer}</span>
                                                                 </li>
                                                             );
@@ -552,7 +555,6 @@ const Maintenance = (props) => {
                                                 <span onClick={
                                                     () => {
                                                         getInfoQuestion(question);
-                                                        setIsRefreshView(true);
                                                     }
                                                 }>
                                                     <SvgIcon src={"edit.svg"} alt={"edit.svg"} width={"auto"} height={"auto"} />
@@ -560,7 +562,6 @@ const Maintenance = (props) => {
                                                 <span onClick={
                                                     () => {
                                                         handleDeleteQuestion(question.id);
-                                                        setIsRefreshView(true);
                                                     }
                                                 }>
                                                     <SvgIcon src={"delete.svg"} alt={"delete.svg"} width={"auto"} height={"auto"} />
