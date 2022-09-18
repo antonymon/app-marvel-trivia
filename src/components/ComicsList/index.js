@@ -6,7 +6,6 @@ import { Link, Redirect } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 
 
-
 import { ComicsListLinkNext, ComicsListLinkPrevious } from "./styles";
 
 import Search from "../Search";
@@ -23,7 +22,8 @@ import {
   ComicsListPagination
 } from "./styles";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Logout } from "../../redux/userSlice";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -31,9 +31,12 @@ import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
 
+
 const ComicsList = (props) => {
   const user = useSelector((state) => state.user);
   console.log("ComicsList: ", user);
+
+  const dispatch = useDispatch();
 
   const [comicsList, setComicsList] = useState([]);
   const [responseData, setResponseData] = useState();
@@ -88,8 +91,14 @@ const ComicsList = (props) => {
               confirmButtonColor: 'green'
             })
           }
+          setLoading(false);
+
+          if (response.status === 401) {
+            console.log("characters: ", response.status + "dispatch Logout() ");
+            dispatch(Logout());
+          }
         }
-        setLoading(false);
+
       }
     }
     fetchData();

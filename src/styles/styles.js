@@ -139,5 +139,64 @@ export const Styles = createGlobalStyle`
         font-size: 1.5rem;
         color: #2A2B38;
     }
+
+    .SelectAlert {
+        color: #2A2B38;
+        font-family: 'Marvel Regular', sans-serif;
+        font-size: 1.3rem;
+        color: #2A2B38;
+        display: flex;
+        align-items: left;
+        justify-content: left;
+
+        .select {
+            margin-left: 1rem;
+        }
+    }
     
+    .conteinerQuestionsAlert {
+        color: #2A2B38;
+        font-family: 'Marvel Regular', sans-serif;
+        font-size: 1.3rem;
+        color: #2A2B38;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: left;
+
+        .question {
+            display: flex;
+            align-items: left;
+            justify-content: left;
+            margin-top: 1rem;
+            label {
+                width: 120px;
+            }
+            input {
+                margin-left: 1rem;
+            }
+        }
+        .answer { 
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            margin-top: 1rem;   
+            label {
+                width: 120px;
+            }    
+            .form-check {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: 1rem;
+                border-radius: 4px;
+                border: 0;
+                background-color: rgb(241,242,243);
+                transition: all 0.3s ease-in-out;
+                outline: none;
+                width: 100%;
+                font-weight: 600;
+            }
+        }
+    }
 `;

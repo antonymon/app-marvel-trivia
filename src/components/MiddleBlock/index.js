@@ -31,7 +31,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
               <Leaderboard>
                 <div className="content">
                   {
-                    user?.accessToken
+                    user?.accessToken && user?.user?.role === "ROLE_USER"
                       ?
                       (
 

@@ -24,7 +24,9 @@ import { Col, Row } from "antd";
 
 import Characters from "../../components/Characters";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { Logout } from "../../redux/userSlice";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -34,8 +36,12 @@ import Maintenance from "../Maintenance";
 
 const MySwal = withReactContent(Swal);
 
+
+
 const Comics = (props) => {
   const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
 
   console.log("Comics: ", user);
 
@@ -95,6 +101,12 @@ const Comics = (props) => {
             })
           }
           setLoading(false);
+
+          if (response.status === 401) {
+            console.log("characters: ", response.status + "dispatch Logout() ");
+            dispatch(Logout());
+          }
+
         }
       }
     }

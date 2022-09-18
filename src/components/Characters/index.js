@@ -20,7 +20,8 @@ import {
   CharactersCheckboxInput
 } from "./styles";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Logout } from "../../redux/userSlice";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -35,6 +36,8 @@ const Characters = (props) => {
   const [loading, setLoading] = useState(true);
 
   let card = null;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
 
@@ -84,13 +87,18 @@ const Characters = (props) => {
           })
         }
         setLoading(false);
+
+        if (response.status === 401) {
+          console.log("characters: ", response.status + "dispatch Logout() ");
+          dispatch(Logout());
+        }
       }
     }
     fetchData();
     return () => {
       return null;
     };
-  }, [props.characters, user]);
+  }, [props.characters, user, dispatch]);
 
   let checkedCharacters = [];
 

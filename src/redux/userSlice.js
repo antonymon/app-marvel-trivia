@@ -10,7 +10,7 @@ export const userSlice = createSlice({
         }
     },
     reducers: {
-        singIn: (state, action) => {
+        SingIn: (state, action) => {
             state.user = action.payload;
         },
         Logout: (state) => {
@@ -20,12 +20,18 @@ export const userSlice = createSlice({
                 data: null
             }
         },
-        Maintenance: (state, action) => {
+        MaintenanceIn: (state, action) => {
             state.maintenance = action.payload;
+        },
+        MaintenanceOut: (state) => {
+            state.maintenance = {
+                maintenance: false,
+                data: null
+            }
         }
     },
 });
 
-export const { singIn, Logout, Maintenance } = userSlice.actions;
+export const { SingIn, Logout, MaintenanceIn, MaintenanceOut } = userSlice.actions;
 
 export default userSlice.reducer;

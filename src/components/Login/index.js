@@ -12,7 +12,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { useDispatch } from 'react-redux';
-import { singIn } from '../../redux/userSlice';
+import { SingIn, Logout } from "../../redux/userSlice";
 
 
 import Swal from 'sweetalert2'
@@ -82,7 +82,7 @@ const Login = (props) => {
 
     async function singInSendData() {
         try {
-            console.log("singIn");
+            console.log("SingIn");
 
             setLoading(true);
 
@@ -98,7 +98,7 @@ const Login = (props) => {
             if (data) {
                 console.log("login success" + data);
 
-                dispatch(singIn(data));
+                dispatch(SingIn(data));
 
                 MySwal.fire({
                     title: <p className="titleAlert">Success!</p>,
@@ -122,6 +122,8 @@ const Login = (props) => {
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
                 })
+
+                dispatch(Logout());
             }
 
 
@@ -147,6 +149,12 @@ const Login = (props) => {
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
                 })
+            }
+
+            setLoading(false);
+
+            if (response.status === 401) {
+                dispatch(Logout());
             }
         }
     }
@@ -183,7 +191,7 @@ const Login = (props) => {
                 if (dataLogin.data) {
                     console.log("login success" + dataLogin.data);
 
-                    dispatch(singIn(dataLogin.data));
+                    dispatch(SingIn(dataLogin.data));
                     MySwal.fire({
                         title: <p className="titleAlert">Success!</p>,
                         text: 'You have registred!',
@@ -202,6 +210,7 @@ const Login = (props) => {
                         confirmButtonText: 'Ok',
                         confirmButtonColor: 'green'
                     })
+                    dispatch(Logout());
                 }
 
 
@@ -217,6 +226,8 @@ const Login = (props) => {
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
                 })
+
+                dispatch(Logout());
             }
 
 
@@ -243,6 +254,13 @@ const Login = (props) => {
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
                 })
+            }
+
+            setLoading(false);
+
+            if (response.status === 401) {
+                console.log("characters: ", response.status + "dispatch Logout() ");
+                dispatch(Logout());
             }
         }
     }
