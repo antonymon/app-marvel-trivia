@@ -12,7 +12,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { useDispatch } from 'react-redux';
-import { SingIn, Logout } from "../../redux/userSlice";
+import { SingIn, extraReducers } from "../../redux/userSlice";
 
 
 import Swal from 'sweetalert2'
@@ -123,7 +123,7 @@ const Login = (props) => {
                     confirmButtonColor: 'green'
                 })
 
-                dispatch(Logout());
+                dispatch(SingIn(null));
             }
 
 
@@ -154,7 +154,7 @@ const Login = (props) => {
             setLoading(false);
 
             if (response.status === 401) {
-                dispatch(Logout());
+                dispatch(SingIn(null));
             }
         }
     }
@@ -210,7 +210,7 @@ const Login = (props) => {
                         confirmButtonText: 'Ok',
                         confirmButtonColor: 'green'
                     })
-                    dispatch(Logout());
+                    dispatch(SingIn(null));
                 }
 
 
@@ -227,7 +227,7 @@ const Login = (props) => {
                     confirmButtonColor: 'green'
                 })
 
-                dispatch(Logout());
+                dispatch(SingIn(null));
             }
 
 
@@ -260,7 +260,7 @@ const Login = (props) => {
 
             if (response.status === 401) {
                 console.log("characters: ", response.status + "dispatch Logout() ");
-                dispatch(Logout());
+                dispatch(SingIn(null));
             }
         }
     }

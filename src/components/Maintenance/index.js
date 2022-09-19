@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { Logout } from "../../redux/userSlice";
+import { SingIn } from "../../redux/userSlice";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -72,7 +72,7 @@ const Maintenance = (props) => {
                 setLoading(false);
 
                 if (response.status === 401) {
-                    dispatch(Logout());
+                    dispatch(SingIn(null));
                 }
             }
         }
@@ -307,6 +307,18 @@ const Maintenance = (props) => {
                     awserPosibility: _data.respuestaPosible,
                     awser: value.respuesta,
                     points: value.puntos,
+                    comic: {
+                        id: comicId,
+                        title: props.comic.title,
+                        description: props.comic.description,
+                        thumbnail: props.comic.thumbnail.path && props.comic.thumbnail.extension ? `${props.comic.thumbnail.path}/standard_xlarge.${props.comic.thumbnail.extension}` : ''
+                    },
+                    character: {
+                        id: characterId,
+                        title: props.character.name,
+                        description: props.character.description,
+                        thumbnail: props.comic.thumbnail.path && props.comic.thumbnail.extension ? `${props.comic.thumbnail.path}/standard_xlarge.${props.comic.thumbnail.extension}` : ''
+                    }
                 };
 
                 console.log("newQuestion :", newQuestion);
@@ -350,7 +362,7 @@ const Maintenance = (props) => {
 
                 if (response.status === 401) {
                     console.log("characters: ", response.status + "dispatch Logout() ");
-                    dispatch(Logout());
+                    dispatch(SingIn(null));
                 }
             }
         }
@@ -403,7 +415,7 @@ const Maintenance = (props) => {
 
                 if (response.status === 401) {
                     console.log("handleDeleteQuestion: ", response.status + "dispatch Logout() ");
-                    dispatch(Logout());
+                    dispatch(SingIn(null));
                 }
             }
         }
@@ -465,7 +477,7 @@ const Maintenance = (props) => {
 
                 if (response.status === 401) {
                     console.log("characters: ", response.status + "dispatch Logout() ");
-                    dispatch(Logout());
+                    dispatch(SingIn(null));
                 }
             }
         }

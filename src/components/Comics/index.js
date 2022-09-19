@@ -26,7 +26,7 @@ import Characters from "../../components/Characters";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { Logout } from "../../redux/userSlice";
+import { SingIn } from "../../redux/userSlice";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -104,7 +104,7 @@ const Comics = (props) => {
 
           if (response.status === 401) {
             console.log("characters: ", response.status + "dispatch Logout() ");
-            dispatch(Logout());
+            dispatch(SingIn(null));
           }
 
         }
@@ -208,7 +208,7 @@ const Comics = (props) => {
                   </Col>
                   <Col lg={11} md={11} sm={12} xs={24}>
                     <CharactersCards>
-                      <Characters {...props} characters={characters} handler={handlerComics} />
+                      <Characters {...props} characters={characters} comic={comicData} handler={handlerComics} />
                     </CharactersCards>
                   </Col>
                 </>

@@ -17,7 +17,7 @@ import {
 } from "./styles";
 
 import { useSelector, useDispatch } from "react-redux";
-import { Logout } from "../../redux/userSlice";
+import { SingIn } from "../../redux/userSlice";
 
 const Header = (props) => {
   const user = useSelector((state) => state.user);
@@ -108,7 +108,8 @@ const Header = (props) => {
               <CustomNavLinkSmall
                 style={{ width: "180px" }}
                 onClick={() => {
-                  dispatch(Logout());
+                  console.log({ user: user.actions });
+                  dispatch(SingIn(null));
                   window.location.href = "/home";
                 }}
               >

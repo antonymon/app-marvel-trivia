@@ -23,7 +23,7 @@ import {
 } from "./styles";
 
 import { useSelector, useDispatch } from "react-redux";
-import { Logout } from "../../redux/userSlice";
+import { SingIn } from "../../redux/userSlice";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -95,7 +95,7 @@ const ComicsList = (props) => {
 
           if (response.status === 401) {
             console.log("characters: ", response.status + "dispatch Logout() ");
-            dispatch(Logout());
+            dispatch(SingIn(null));
           }
         }
 
