@@ -47,6 +47,24 @@ export const CharactersDiv = styled("div")`
 
 `;
 
+export const CharacterDivMessage = styled("div")`
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 10px 5px #48529944;
+  padding: 1rem;
+  text-align: center;
+  h1 {
+    font-size: 1.5rem;
+    
+  }
+  p {
+    font-size: 1rem;
+  }
+`;
+
 export const CharactersCardActionArea = styled(CardActionArea)`
 `;
 

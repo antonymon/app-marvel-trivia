@@ -17,11 +17,12 @@ import {
   CharactersGridClass,
   CharactersH1,
   CharactersCheckboxDiv,
-  CharactersCheckboxInput
+  CharactersCheckboxInput,
+  CharacterDivMessage
 } from "./styles";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Logout } from "../../redux/userSlice";
+import { SingIn } from "../../redux/userSlice";
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -47,6 +48,9 @@ const Characters = (props) => {
 
         const charactersIds = props.characters.map((character) => character.resourceURI.split('/').pop());
 
+        //get comic
+        const idComic = props.comic.id ? props.comic.id : props.match.params.id;
+
         let fetchData = [];
 
         const configAxios = {
@@ -56,7 +60,7 @@ const Characters = (props) => {
         };
 
         for (let i = 0; i < charactersIds.length; i++) {
-          const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/external/apiMarvel/characters/${charactersIds[i]}`;
+          const url = `${process.env.REACT_APP_MARVEL_TRIVIAL_API}/external/apiMarvel/characters/${charactersIds[i]}?idComic=${idComic}`;
           const { data } = await axios.get(url, configAxios);
           fetchData.push(data.data.results[0]);
         }
@@ -90,14 +94,18 @@ const Characters = (props) => {
 
         if (response.status === 401) {
           console.log("characters: ", response.status + "dispatch Logout() ");
-          dispatch(Logout());
+          dispatch(SingIn(null));
         }
       }
     }
+
     fetchData();
+
+
     return () => {
       return null;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.characters, user, dispatch]);
 
   let checkedCharacters = [];
@@ -111,6 +119,16 @@ const Characters = (props) => {
     console.log({ checkedCharacters });
   }
 
+
+  const [existQuestions, setExistQuestions] = useState(false);
+
+  useEffect(() => {
+    if (existQuestions) {
+      setExistQuestions(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [existQuestions]);
+
   const buildCard = (character) => {
     let charImgUrl = '';
 
@@ -121,24 +139,29 @@ const Characters = (props) => {
         character.thumbnail.extension;
     }
 
+    if (!existQuestions && character.questions) setExistQuestions(character.questions);
+
     return (
       <CharactersGrid item key={character.id}>
         <CharactersCard variant="outlined">
           <CharactersCardActionArea>
             {
-              user?.roles?.includes('ROLE_ADMIN') ? null
-                :
-                (
-                  <CharactersCheckboxDiv>
-                    <label>
-                      <CharactersCheckboxInput
-                        type="checkbox"
-                        onChange={() => handleChecked(character.id)}
-                      />
-                      <span className="label">XXX</span>
-                    </label>
-                  </CharactersCheckboxDiv>
-                )
+              user?.roles?.includes('ROLE_ADMIN')
+                ? null
+                : character.questions
+                  ?
+                  (
+                    <CharactersCheckboxDiv>
+                      <label>
+                        <CharactersCheckboxInput
+                          type="checkbox"
+                          onChange={() => handleChecked(character.id)}
+                        />
+                        <span className="label">XXX</span>
+                      </label>
+                    </CharactersCheckboxDiv>
+                  )
+                  : null
             }
 
             {/* <Link to={() => { }}> */}
@@ -199,6 +222,24 @@ const Characters = (props) => {
         {
           card && card.length > 0 ?
             <CharactersDiv>
+              {
+                user?.roles?.includes('ROLE_ADMIN')
+                  ? null
+                  : !existQuestions
+                    ? (
+                      <CharacterDivMessage>
+                        <h1>No existe ninguna pregunta configurada 😭💔</h1>
+                        <p>Si quieres jugar, debes solicitar al administrador que configure las preguntas.</p>
+                      </CharacterDivMessage>
+                    )
+                    : (
+                      <CharacterDivMessage>
+                        <h1>Solo puedes elegir los personajes disponibles 😀</h1>
+                        <p>Estos los puedes identificar con el check ✅.</p>
+                      </CharacterDivMessage>
+                    )
+              }
+
               <CharactersGridClass container spacing={3}>
                 {card}
               </CharactersGridClass>
