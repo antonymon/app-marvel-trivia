@@ -138,3 +138,45 @@ export const CharactersCardMedia = styled(CardMedia)`
     width: 100%;
     border: 1px solid #fff !important;
 `;
+
+
+export const CharactersDivButtons = styled("div")`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  button {
+    margin: 0.5rem;
+  }
+`;
+
+export const CharactersButtonJugar = styled("button")`
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  :hover {
+    background-color: #000;
+    color: #fff;
+  }
+`;
+
+export const CharactersButtonRegresar = styled("button")`
+  background-color: #1f2029 !important;
+  color: #fff !important;
+  border: 1px solid #fff !important;
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  :hover {
+    background-color: #fff !important;
+    color: #1f2029 !important;
+  }
+`;

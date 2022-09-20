@@ -18,7 +18,10 @@ import {
   CharactersH1,
   CharactersCheckboxDiv,
   CharactersCheckboxInput,
-  CharacterDivMessage
+  CharacterDivMessage,
+  CharactersDivButtons,
+  CharactersButtonJugar,
+  CharactersButtonRegresar
 } from "./styles";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -108,17 +111,31 @@ const Characters = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.characters, user, dispatch]);
 
-  let checkedCharacters = [];
+  //let checkedCharacters = [];
+
+  const [checkedCharacters, setCheckedCharacters] = useState([]);
 
   const handleChecked = (id) => {
     if (checkedCharacters.includes(id)) {
-      checkedCharacters = checkedCharacters.filter((characterId) => characterId !== id);
+      //checkedCharacters = checkedCharacters.filter((characterId) => characterId !== id);
+      setCheckedCharacters(checkedCharacters.filter((characterId) => characterId !== id));
     } else {
-      checkedCharacters.push(id);
+      //checkedCharacters.push(id);
+      setCheckedCharacters([...checkedCharacters, id]);
     }
     console.log({ checkedCharacters });
   }
 
+  const [isCheked, setIsCheked] = useState(false);
+
+  useEffect(() => {
+    if (checkedCharacters.length > 0) {
+      setIsCheked(true);
+    }
+    else {
+      setIsCheked(false);
+    }
+  }, [checkedCharacters]);
 
   const [existQuestions, setExistQuestions] = useState(false);
 
@@ -245,6 +262,24 @@ const Characters = (props) => {
               </CharactersGridClass>
             </CharactersDiv>
             : <CharactersH1>{props.t("CharactersResultNotFound")}</CharactersH1>
+        }
+
+        {
+          isCheked
+            ? (
+              <CharactersDivButtons>
+                <CharactersButtonRegresar onClick={
+                  () => {
+                    window.location.href = "/comics/page/0"
+                  }}>⬅️Regresar</CharactersButtonRegresar>
+                <CharactersButtonJugar onClick={
+                  () => {
+                    const listPahtCharacters = checkedCharacters.join('-');
+                    window.location.href = "/play/" + props.comic.id + "/" + listPahtCharacters
+                  }}>Jugar 🎮</CharactersButtonJugar>
+              </CharactersDivButtons>
+            )
+            : null
         }
       </div>
     );

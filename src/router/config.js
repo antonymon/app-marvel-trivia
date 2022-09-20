@@ -30,6 +30,11 @@ const routes = [
     component: "Leaderboard",
   },
   {
+    path: ["/play/:comicId/:characters"],
+    exact: true,
+    component: "Play",
+  },
+  {
     path: ["/error/:errorMsg"],
     exact: true,
     component: "Error",

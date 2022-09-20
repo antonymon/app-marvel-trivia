@@ -12,7 +12,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import { useDispatch } from 'react-redux';
-import { SingIn, extraReducers } from "../../redux/userSlice";
+import { SingIn } from "../../redux/userSlice";
 
 
 import Swal from 'sweetalert2'
@@ -121,9 +121,11 @@ const Login = (props) => {
                     timer: 2000,
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
+                }).then(() => {
+                    dispatch(SingIn(null));
                 })
 
-                dispatch(SingIn(null));
+
             }
 
 
@@ -136,10 +138,16 @@ const Login = (props) => {
 
             if (response) {
                 MySwal.fire({
-                    title: <p className="titleAlert">{data.description.message}</p>,
+                    title: <p className="titleAlert">{data.description.message ?? data.description}</p>,
                     icon: 'error',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
+                }).then(() => {
+                    setLoading(false);
+
+                    if (response.status === 401) {
+                        dispatch(SingIn(null));
+                    }
                 })
             }
             else {
@@ -148,13 +156,13 @@ const Login = (props) => {
                     icon: 'error',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
+                }).then(() => {
+                    setLoading(false);
+
+                    if (response.status === 401) {
+                        dispatch(SingIn(null));
+                    }
                 })
-            }
-
-            setLoading(false);
-
-            if (response.status === 401) {
-                dispatch(SingIn(null));
             }
         }
     }
@@ -209,8 +217,9 @@ const Login = (props) => {
                         icon: 'error',
                         confirmButtonText: 'Ok',
                         confirmButtonColor: 'green'
+                    }).then(() => {
+                        dispatch(SingIn(null));
                     })
-                    dispatch(SingIn(null));
                 }
 
 
@@ -225,9 +234,9 @@ const Login = (props) => {
                     timer: 2000,
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
+                }).then(() => {
+                    dispatch(SingIn(null));
                 })
-
-                dispatch(SingIn(null));
             }
 
 
@@ -245,6 +254,13 @@ const Login = (props) => {
                     icon: 'error',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
+                }).then(() => {
+                    setLoading(false);
+
+                    if (response.status === 401) {
+                        console.log("characters: ", response.status + "dispatch Logout() ");
+                        dispatch(SingIn(null));
+                    }
                 })
             }
             else {
@@ -253,14 +269,14 @@ const Login = (props) => {
                     icon: 'error',
                     confirmButtonText: 'Ok',
                     confirmButtonColor: 'green'
+                }).then(() => {
+                    setLoading(false);
+
+                    if (response.status === 401) {
+                        console.log("characters: ", response.status + "dispatch Logout() ");
+                        dispatch(SingIn(null));
+                    }
                 })
-            }
-
-            setLoading(false);
-
-            if (response.status === 401) {
-                console.log("characters: ", response.status + "dispatch Logout() ");
-                dispatch(SingIn(null));
             }
         }
     }
