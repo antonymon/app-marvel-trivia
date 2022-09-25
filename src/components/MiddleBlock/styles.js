@@ -1,4 +1,11 @@
 import styled from "styled-components";
+import {
+  CircularProgress
+} from "@mui/material";
+
+export const MiddleCircularProgress = styled(CircularProgress)`
+
+`;
 
 export const MiddleBlockSection = styled("section")`
   position: relative;
