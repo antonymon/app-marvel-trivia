@@ -133,24 +133,41 @@ const Login = (props) => {
         catch (e) {
             console.log("login failed", { e });
 
-            const { response } = e;
-            const data = response.data.error ? response.data.error : response.data;
+            try {
+                const { response } = e;
+                const data = response.data.error ? response.data.error : response.data;
 
-            if (response) {
-                MySwal.fire({
-                    title: <p className="titleAlert">{data.description.message ?? data.description}</p>,
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                    confirmButtonColor: 'green'
-                }).then(() => {
-                    setLoading(false);
+                if (response) {
+                    MySwal.fire({
+                        title: <p className="titleAlert">{data.description.message ?? data.description}</p>,
+                        icon: 'error',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: 'green'
+                    }).then(() => {
+                        setLoading(false);
 
-                    if (response.status === 401) {
-                        dispatch(SingIn(null));
-                    }
-                })
-            }
-            else {
+                        if (response.status === 401) {
+                            dispatch(SingIn(null));
+                        }
+                    })
+                }
+                else {
+                    MySwal.fire({
+                        title: <p className="titleAlert">Something went wrong</p>,
+                        icon: 'error',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: 'green'
+                    }).then(() => {
+                        setLoading(false);
+
+                        if (response.status === 401) {
+                            dispatch(SingIn(null));
+                        }
+                    })
+                }
+
+
+            } catch (error) {
                 MySwal.fire({
                     title: <p className="titleAlert">Something went wrong</p>,
                     icon: 'error',
@@ -158,10 +175,6 @@ const Login = (props) => {
                     confirmButtonColor: 'green'
                 }).then(() => {
                     setLoading(false);
-
-                    if (response.status === 401) {
-                        dispatch(SingIn(null));
-                    }
                 })
             }
         }
@@ -243,27 +256,45 @@ const Login = (props) => {
         }
         catch (e) {
             console.log("singUp failed", { e });
+            try {
+                const { response } = e;
 
-            const { response } = e;
+                const data = response.data.error ? response.data.error : response.data;
 
-            const data = response.data.error ? response.data.error : response.data;
+                if (response) {
+                    MySwal.fire({
+                        title: <p className="titleAlert">{data.description.message ?? data.description}</p>,
+                        icon: 'error',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: 'green'
+                    }).then(() => {
+                        setLoading(false);
 
-            if (response) {
-                MySwal.fire({
-                    title: <p className="titleAlert">{data.description.message ?? data.description}</p>,
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                    confirmButtonColor: 'green'
-                }).then(() => {
-                    setLoading(false);
+                        if (response.status === 401) {
+                            console.log("characters: ", response.status + "dispatch Logout() ");
+                            dispatch(SingIn(null));
+                        }
+                    })
+                }
+                else {
+                    MySwal.fire({
+                        title: <p className="titleAlert">Something went wrong</p>,
+                        icon: 'error',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: 'green'
+                    }).then(() => {
+                        setLoading(false);
 
-                    if (response.status === 401) {
-                        console.log("characters: ", response.status + "dispatch Logout() ");
-                        dispatch(SingIn(null));
-                    }
-                })
-            }
-            else {
+                        if (response.status === 401) {
+                            console.log("characters: ", response.status + "dispatch Logout() ");
+                            dispatch(SingIn(null));
+                        }
+                    })
+                }
+
+
+
+            } catch (error) {
                 MySwal.fire({
                     title: <p className="titleAlert">Something went wrong</p>,
                     icon: 'error',
@@ -271,11 +302,6 @@ const Login = (props) => {
                     confirmButtonColor: 'green'
                 }).then(() => {
                     setLoading(false);
-
-                    if (response.status === 401) {
-                        console.log("characters: ", response.status + "dispatch Logout() ");
-                        dispatch(SingIn(null));
-                    }
                 })
             }
         }
