@@ -61,6 +61,37 @@ export const NotHidden = styled("div")`
   }
 `;
 
+export const ContainerMenu = styled("div")`
+  display: flex;
+  padding: 0;
+  margin: 0;
+`;
+
+export const DivInfo = styled("div")`
+  //aling-items: left;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+
+  h5 {//name
+    text-align: left;
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: #1f2029;
+    padding: 0;
+    margin: 0;
+  }
+  h6 { //email
+    text-align: left;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #1f2029;
+    padding: 0;
+    margin: 0;
+  }
+`;
+
 export const Menu = styled("h5")`
   font-size: 1.5rem;
   font-weight: 600;
@@ -101,11 +132,23 @@ export const Span = styled("span")`
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 
-  &:hover,
+  &:hover{
+    img {
+      transform: scale(1.1);
+    }
+  }
+
   &:active,
   &:focus {
     color: #dfdee5;
     text-underline-position: under;
     text-decoration: #dfdee5 wavy underline;
   }
+
+    .avatar-profile {
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 40px;
+    }
 `;

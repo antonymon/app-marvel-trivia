@@ -35,6 +35,11 @@ const routes = [
     component: "Play",
   },
   {
+    path: ["/profile"],
+    exact: true,
+    component: "Profile",
+  },
+  {
     path: ["/error/:errorMsg"],
     exact: true,
     component: "Error",

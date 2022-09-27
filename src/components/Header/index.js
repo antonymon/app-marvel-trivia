@@ -14,16 +14,15 @@ import {
   Label,
   Outline,
   Span,
+  ContainerMenu,
+  DivInfo
 } from "./styles";
 
-import { useSelector, useDispatch } from "react-redux";
-import { SingIn } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
 
 const Header = (props) => {
   const user = useSelector((state) => state.user);
   console.log("Header: ", user);
-
-  const dispatch = useDispatch();
 
   const [visible, setVisibility] = useState(false);
 
@@ -102,19 +101,20 @@ const Header = (props) => {
         }
 
 
-        {user?.accessToken
+        {user?.accessToken && !visible
           ? (
             <>
               <CustomNavLinkSmall
-                style={{ width: "180px" }}
+                style={{ width: "50px" }}
                 onClick={() => {
                   console.log({ user: user.actions });
-                  dispatch(SingIn(null));
-                  window.location.href = "/home";
+                  window.location.href = "/profile";
                 }}
               >
+
                 <Span>
-                  <Button onClick={() => scrollTo("home")}>{props.t("Logout")}</Button>
+                  {/* imagen profile */}
+                  <img className="avatar-profile" src={user?.imageBase64} alt="profile" />
                 </Span>
 
               </CustomNavLinkSmall>
@@ -166,7 +166,32 @@ const Header = (props) => {
           <Col style={{ marginBottom: "2.5rem" }}>
             <Label onClick={onClose}>
               <Col span={12}>
-                <Menu>Menu</Menu>
+                {user?.accessToken && visible
+                  ? (
+                    <ContainerMenu
+                      onClick={() => {
+                        console.log({ user: user.actions });
+                        // dispatch(SingIn(null));
+                        window.location.href = "/profile";
+                      }}
+                    >
+                      <Span>
+                        {/* imagen profile */}
+                        <img className="avatar-profile" src={user?.imageBase64} alt="profile" />
+                      </Span>
+                      <DivInfo>
+                        <h5>{user?.name}</h5>
+                        <h6>{user?.email}</h6>
+                      </DivInfo>
+                    </ContainerMenu>
+                  )
+                  :
+                  (
+
+                    <Menu>Menu</Menu>
+
+                  )
+                }
               </Col>
               <Col span={12}>
                 <Outline />

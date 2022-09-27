@@ -172,13 +172,15 @@ const Maintenance = (props) => {
             if (parseInt(result.value.tipoPregunta) === 2) {
                 MySwal.fire({
                     title: <p className="titleAlert">No. de preguntas</p>,
-                    html: `
-                            <div class="conteinerQuestionsAlert">
-                                <div class="question">
-                                    <label for="numeroPreguntas">Número de preguntas</label>
-                                    <input type="number" class="form-control" id="numeroPreguntas" placeholder="Ingrese número de preguntas">
+                    text: `
+                            <from>
+                                <div class="conteinerQuestionsAlert">
+                                    <div class="question">
+                                        <label for="numeroPreguntas">Número de preguntas</label>
+                                        <input type="number" class="form-control" id="numeroPreguntas" placeholder="Ingrese número de preguntas">
+                                    </div>
                                 </div>
-                            </div>
+                            </from>
                         `,
                     showCancelButton: true,
                     confirmButtonText: 'Ok',

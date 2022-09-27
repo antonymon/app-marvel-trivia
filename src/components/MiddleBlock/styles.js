@@ -33,6 +33,21 @@ export const ContentWrapper = styled("div")`
 
 export const Leaderboard = styled("div")`
 
+  .noPlay{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #1f2029;
+    border-radius: 5px;
+    white-space: nowrap;
+    p {
+      font-weight: 400;
+    }
+  }
+
   div {
     text-align: center;
     background-color: transparent;
