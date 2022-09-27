@@ -85,7 +85,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
                                       <img
                                         alt=""
                                         className="card-avatar"
-                                        src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads01&accessoriesType=Prescription01&hairColor=Blue&facialHairType=BeardMedium&facialHairColor=Auburn&clotheType=GraphicShirt&clotheColor=Gray02&graphicType=Skull&eyeType=Happy&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=Yellow"
+                                        src={user?.base64Image}
                                       />
                                       <h1 id="profile-mid-txt">Usuario</h1>
                                       <h1 id="profile-bot-txt" className="blue">
@@ -161,7 +161,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
                                       <img
                                         alt=""
                                         className="avatar-table"
-                                        src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads01&accessoriesType=Prescription01&hairColor=Blue&facialHairType=BeardMedium&facialHairColor=Auburn&clotheType=GraphicShirt&clotheColor=Gray02&graphicType=Skull&eyeType=Happy&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=Yellow"
+                                        src={item?.base64Image}
                                       />
                                     </th>
                                     <th data-label="Usuario">{item.email}</th>
