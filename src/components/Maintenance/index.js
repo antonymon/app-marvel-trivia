@@ -172,7 +172,7 @@ const Maintenance = (props) => {
             if (parseInt(result.value.tipoPregunta) === 2) {
                 MySwal.fire({
                     title: <p className="titleAlert">No. de preguntas</p>,
-                    text: `
+                    html: `
                             <from>
                                 <div class="conteinerQuestionsAlert">
                                     <div class="question">

@@ -28,6 +28,16 @@ const Profile = (props) => {
 
   const user = useSelector((state) => state.user);
 
+  useEffect(() => {
+    console.log("Profile useEffect set data");
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      setImagePreviewUrl(user.image);
+    }
+  }, [user]);
+
+
   const handleChangeName = (e) => {
     setName(e.target.value);
   }
@@ -191,14 +201,14 @@ const Profile = (props) => {
                 <div className="icon">
                   <SvgIcon className={"loginPerson"} src={"loginPerson.svg"} />
                 </div>
-                <input type="text" className="name" placeholder={props.t("LoginSingUpTitlePlaceHolderName")} value={user?.name} onChange={handleChangeName} />
+                <input type="text" className="name" placeholder={props.t("LoginSingUpTitlePlaceHolderName")} value={name} onChange={handleChangeName} />
               </label>
 
               <label className="field">
                 <div className="icon">
                   <SvgIcon className={"loginEmail"} src={"loginEmail.svg"} />
                 </div>
-                <input type="email" className="email" placeholder={props.t("LoginSingUpTitlePlaceHolderEmail")} value={user?.email} onChange={handleChangeEmail} />
+                <input type="email" className="email" placeholder={props.t("LoginSingUpTitlePlaceHolderEmail")} value={email} onChange={handleChangeEmail} />
               </label>
 
               <label className="field">

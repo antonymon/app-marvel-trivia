@@ -85,7 +85,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
                                       <img
                                         alt=""
                                         className="card-avatar"
-                                        src={user?.base64Image}
+                                        src={user?.imageBase64}
                                       />
                                       <h1 id="profile-mid-txt">Usuario</h1>
                                       <h1 id="profile-bot-txt" className="blue">
@@ -161,7 +161,7 @@ const MiddleBlock = ({ title, content, button, t, id }) => {
                                       <img
                                         alt=""
                                         className="avatar-table"
-                                        src={item?.base64Image}
+                                        src={item?.imageBase64}
                                       />
                                     </th>
                                     <th data-label="Usuario">{item.email}</th>
